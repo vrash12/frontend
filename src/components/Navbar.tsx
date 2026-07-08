@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { api } from "../api/client";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -7,6 +8,20 @@ const navLinks = [
   { to: "/blogs", label: "Blogs" },
   { to: "/about", label: "About" },
 ];
+
+function getSessionId() {
+  const existingSessionId = localStorage.getItem("portfolio_session_id");
+
+  if (existingSessionId) {
+    return existingSessionId;
+  }
+
+  const newSessionId = crypto.randomUUID();
+
+  localStorage.setItem("portfolio_session_id", newSessionId);
+
+  return newSessionId;
+}
 
 function Navbar() {
   const navigate = useNavigate();
@@ -20,7 +35,23 @@ function Navbar() {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  function trackNavClick(label: string, path: string) {
+    api
+      .post("/analytics/nav-click", {
+        label,
+        path,
+        current_path: location.pathname,
+        session_id: getSessionId(),
+        user_type: isLoggedIn ? "admin" : "visitor",
+      })
+      .catch((error) => {
+        console.error("Failed to track nav click:", error);
+      });
+  }
+
   function handleLogout() {
+    trackNavClick("Logout", "/logout");
+
     localStorage.removeItem("portfolio_token");
     localStorage.removeItem("portfolio_user");
 
@@ -38,7 +69,10 @@ function Navbar() {
       <NavLink
         to="/"
         className="navbar-brand neo-brand"
-        onClick={() => setIsMenuOpen(false)}
+        onClick={() => {
+          trackNavClick("Logo", "/");
+          setIsMenuOpen(false);
+        }}
       >
         <div className="brand-logo-icon">
           <img src="/images/brand/space-logo.png" alt="VRMS space logo" />
@@ -73,7 +107,10 @@ function Navbar() {
             key={link.to}
             to={link.to}
             className={navClass}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={() => {
+              trackNavClick(link.label, link.to);
+              setIsMenuOpen(false);
+            }}
           >
             {link.label}
           </NavLink>
@@ -86,7 +123,10 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive ? "nav-link nav-write active" : "nav-link nav-write"
               }
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                trackNavClick("Projects Admin", "/project-admin");
+                setIsMenuOpen(false);
+              }}
             >
               Projects Admin
             </NavLink>
@@ -96,7 +136,10 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive ? "nav-link nav-write active" : "nav-link nav-write"
               }
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                trackNavClick("Blogs Admin", "/blog-admin");
+                setIsMenuOpen(false);
+              }}
             >
               Blogs Admin
             </NavLink>

@@ -527,12 +527,12 @@ function Home() {
       </p>
 
       <div className="moon-contact-actions">
-        <a href="mailto:your@email.com" className="btn moon-primary-btn">
+        <a href="mailto:vansuliva4@gmail.com" className="btn moon-primary-btn">
           Email Me
         </a>
 
         <a
-          href="https://www.linkedin.com/"
+          href="https://www.linkedin.com/in/van-rodolf-suliva-779569380/"
           target="_blank"
           rel="noreferrer"
           className="btn moon-secondary-btn"
