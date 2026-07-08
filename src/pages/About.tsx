@@ -223,51 +223,108 @@ ${contactForm.message}
         </div>
       </section>
 
-      <section className="about-education-section">
-        <div className="about-section-heading">
-          <p className="section-kicker">Education</p>
-          <h2>Academic Background</h2>
+
+<section className="about-education-section enhanced-education-section">
+  <div className="about-section-heading education-heading-enhanced">
+    <p className="section-kicker">Education</p>
+    <h2>Academic Background</h2>
+    <p>
+      My academic path focuses on information technology, software development,
+      networking, and continuous professional growth.
+    </p>
+  </div>
+
+  <div className="education-journey">
+    <article className="education-card education-card-featured">
+      <div className="education-card-marker">
+        <span>01</span>
+      </div>
+
+      <div className="education-card-content">
+        <div className="education-card-top">
+          <span className="about-year-pill">Starting August 2026</span>
+          <strong>Next Chapter</strong>
         </div>
 
-        <div className="about-timeline">
-          <article className="about-timeline-card">
-            <span className="about-year-pill">Starting August 2026</span>
+        <h3>Tarlac State University</h3>
 
-            <h3>Tarlac State University</h3>
+        <h4>Master in Information Technology</h4>
 
-            <p>
-              Master in Information Technology. I will continue my graduate
-              studies to deepen my knowledge in software development,
-              information systems, networking, and modern technology solutions.
-            </p>
-          </article>
+        <p>
+          I will continue my graduate studies to deepen my knowledge in software
+          development, information systems, networking, and modern technology
+          solutions.
+        </p>
 
-          <article className="about-timeline-card">
-            <span className="about-year-pill">August 2022 - July 2026</span>
-
-            <h3>Tarlac State University</h3>
-
-            <p>
-              Bachelor of Science in Information Technology specializing in
-              Network and Administration.
-            </p>
-
-            <div className="about-achievement-list">
-              {achievements.map((achievement) => (
-                <span key={achievement}>{achievement}</span>
-              ))}
-            </div>
-          </article>
-
-          <article className="about-timeline-card">
-            <span className="about-year-pill">2020 - 2022</span>
-
-            <h3>St. Vincent School Foundation, Inc.</h3>
-
-            <p>Senior High School, STEM Strand.</p>
-          </article>
+        <div className="education-focus-grid">
+          <span>Graduate Studies</span>
+          <span>Information Systems</span>
+          <span>Software Development</span>
+          <span>Networking</span>
         </div>
-      </section>
+      </div>
+    </article>
+
+    <article className="education-card">
+      <div className="education-card-marker">
+        <span>02</span>
+      </div>
+
+      <div className="education-card-content">
+        <div className="education-card-top">
+          <span className="about-year-pill">August 2022 - July 2026</span>
+          <strong>Undergraduate</strong>
+        </div>
+
+        <h3>Tarlac State University</h3>
+
+        <h4>
+          Bachelor of Science in Information Technology specializing in Network
+          and Administration
+        </h4>
+
+        <p>
+          Built a strong foundation in programming, databases, systems,
+          networking, web development, and IT project implementation.
+        </p>
+
+        <div className="about-achievement-list education-achievement-list">
+          {achievements.map((achievement) => (
+            <span key={achievement}>{achievement}</span>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <article className="education-card">
+      <div className="education-card-marker">
+        <span>03</span>
+      </div>
+
+      <div className="education-card-content">
+        <div className="education-card-top">
+          <span className="about-year-pill">2020 - 2022</span>
+          <strong>Senior High</strong>
+        </div>
+
+        <h3>St. Vincent School Foundation, Inc.</h3>
+
+        <h4>STEM Strand</h4>
+
+        <p>
+          Developed academic discipline, problem-solving skills, and a stronger
+          interest in science, technology, and analytical thinking.
+        </p>
+
+        <div className="education-focus-grid">
+          <span>STEM</span>
+          <span>Research</span>
+          <span>Problem Solving</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
 
       <section className="about-skills-section">
         <div className="about-section-heading center">
