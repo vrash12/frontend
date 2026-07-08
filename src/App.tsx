@@ -11,6 +11,7 @@ import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import CreateProject from "./pages/CreateProject";
 import ProjectAdmin from "./pages/ProjectAdmin";
+import AdminAnalytics from "./pages/AdminAnalytics";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -60,6 +61,15 @@ function App() {
           element={
             <ProtectedRoute>
               <ProjectAdmin />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/analytics"
+          element={
+            <ProtectedRoute>
+              <AdminAnalytics />
             </ProtectedRoute>
           }
         />
