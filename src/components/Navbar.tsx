@@ -3,9 +3,8 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { to: "/", label: "Home" },
-    { to: "/projects", label: "Projects" },
-  { to: "/blogs", label: "Quests" },
-
+  { to: "/projects", label: "Projects" },
+  { to: "/blogs", label: "Blogs" },
   { to: "/about", label: "About" },
 ];
 
@@ -70,28 +69,46 @@ function Navbar() {
         }
       >
         {navLinks.map((link) => (
-          <NavLink key={link.to} to={link.to} className={navClass}>
+          <NavLink
+            key={link.to}
+            to={link.to}
+            className={navClass}
+            onClick={() => setIsMenuOpen(false)}
+          >
             {link.label}
           </NavLink>
         ))}
 
-        {isLoggedIn ? (
-          <button
-            type="button"
-            className="nav-button nav-logout"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        ) : (
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive ? "nav-link nav-login active" : "nav-link nav-login"
-            }
-          >
-            Login
-          </NavLink>
+        {isLoggedIn && (
+          <>
+            <NavLink
+              to="/project-admin"
+              className={({ isActive }) =>
+                isActive ? "nav-link nav-write active" : "nav-link nav-write"
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Projects Admin
+            </NavLink>
+
+            <NavLink
+              to="/blog-admin"
+              className={({ isActive }) =>
+                isActive ? "nav-link nav-write active" : "nav-link nav-write"
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blogs Admin
+            </NavLink>
+
+            <button
+              type="button"
+              className="nav-button nav-logout"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>
