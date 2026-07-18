@@ -115,6 +115,18 @@ function Navbar() {
             {link.label}
           </NavLink>
         ))}
+        <a
+  href="/documents/Van_Rodolf_Suliva_Resume.pdf"
+  target="_blank"
+  rel="noreferrer"
+  className="nav-link nav-resume"
+  onClick={() => {
+    trackNavClick("Resume", "/documents/Van_Rodolf_Suliva_Resume.pdf");
+    setIsMenuOpen(false);
+  }}
+>
+  Resume
+</a>
 
         {isLoggedIn && (
           <>
