@@ -46,7 +46,7 @@ const skillGroups = [
 ];
 
 const achievements = [
-  "Candidate for Magna Cum Laude, July 31, 2026",
+  "Magna Cum Laude, July 31, 2026",
   "Best Capstone Project, 2026",
   "3rd Place, Saliksiklaban University-wide Undergraduate Research Competition, STEM Category, 2026",
 ];
@@ -235,35 +235,7 @@ ${contactForm.message}
   </div>
 
   <div className="education-journey">
-    <article className="education-card education-card-featured">
-      <div className="education-card-marker">
-        <span>01</span>
-      </div>
-
-      <div className="education-card-content">
-        <div className="education-card-top">
-          <span className="about-year-pill">Starting August 2026</span>
-          <strong>Next Chapter</strong>
-        </div>
-
-        <h3>Tarlac State University</h3>
-
-        <h4>Master in Information Technology</h4>
-
-        <p>
-          I will continue my graduate studies to deepen my knowledge in software
-          development, information systems, networking, and modern technology
-          solutions.
-        </p>
-
-        <div className="education-focus-grid">
-          <span>Graduate Studies</span>
-          <span>Information Systems</span>
-          <span>Software Development</span>
-          <span>Networking</span>
-        </div>
-      </div>
-    </article>
+  
 
     <article className="education-card">
       <div className="education-card-marker">
