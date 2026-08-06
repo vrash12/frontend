@@ -1,6 +1,12 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 
+const linkedInUrl =
+  "https://www.linkedin.com/in/van-rodolf-suliva-779569380/";
+
+const githubUrl =
+  "https://github.com/YOUR-GITHUB-USERNAME";
+
 const skillGroups = [
   {
     title: "Programming",
@@ -12,7 +18,14 @@ const skillGroups = [
   },
   {
     title: "Backend Development",
-    items: ["Django", "Laravel", "Flask", "Node.js", "Spring Boot", "PHP"],
+    items: [
+      "Django",
+      "Laravel",
+      "Flask",
+      "Node.js",
+      "Spring Boot",
+      "PHP",
+    ],
   },
   {
     title: "Mobile Development",
@@ -64,20 +77,28 @@ const emptyContactForm: ContactForm = {
 };
 
 function About() {
-  const [contactForm, setContactForm] = useState<ContactForm>(emptyContactForm);
+  const [contactForm, setContactForm] =
+    useState<ContactForm>(emptyContactForm);
+
   const [formNotice, setFormNotice] = useState("");
 
-  function updateContactForm(field: keyof ContactForm, value: string) {
+  function updateContactForm(
+    field: keyof ContactForm,
+    value: string
+  ) {
     setContactForm((current) => ({
       ...current,
       [field]: value,
     }));
   }
 
-  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleContactSubmit(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     const subject = `Portfolio Inquiry from ${contactForm.name}`;
+
     const body = `
 Name: ${contactForm.name}
 Email: ${contactForm.email}
@@ -96,10 +117,22 @@ ${contactForm.message}
   return (
     <main className="about-page neo-about-page">
       <section className="about-hero-neo about-hero-refined">
-        <div className="about-hero-pattern" aria-hidden="true">
-          <span className="about-plus about-plus-one">+</span>
-          <span className="about-plus about-plus-two">+</span>
-          <span className="about-plus about-plus-three">+</span>
+        <div
+          className="about-hero-pattern"
+          aria-hidden="true"
+        >
+          <span className="about-plus about-plus-one">
+            +
+          </span>
+
+          <span className="about-plus about-plus-two">
+            +
+          </span>
+
+          <span className="about-plus about-plus-three">
+            +
+          </span>
+
           <span className="about-orbit about-orbit-one" />
           <span className="about-orbit about-orbit-two" />
         </div>
@@ -113,23 +146,38 @@ ${contactForm.message}
           </h1>
 
           <p>
-            I’m an aspiring IT professional seeking a full-time role as a
-            software developer where I can apply my technical knowledge,
-            problem-solving skills, and passion for innovation.
+            I’m an aspiring IT professional seeking a
+            full-time role as a software developer where I
+            can apply my technical knowledge, problem-solving
+            skills, and passion for innovation.
           </p>
 
           <div className="about-hero-actions">
-            <a href="mailto:vansuliva4@gmail.com" className="btn">
+            <a
+              href="mailto:vansuliva4@gmail.com"
+              className="btn"
+            >
               Email Me
             </a>
 
             <a
-              href="https://vrash12.github.io/van-portfolio/"
+              href={linkedInUrl}
               target="_blank"
               rel="noreferrer"
               className="btn btn-outline"
+              aria-label="Open Van Rodolf Suliva's LinkedIn profile"
             >
-              View Portfolio
+              LinkedIn
+            </a>
+
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-outline"
+              aria-label="Open Van Rodolf Suliva's GitHub profile"
+            >
+              GitHub
             </a>
           </div>
         </div>
@@ -143,18 +191,26 @@ ${contactForm.message}
           <h2>Let’s build something useful.</h2>
 
           <p>
-            Send a short message about your project, collaboration, internship,
-            or software development opportunity.
+            Send a short message about your project,
+            collaboration, internship, or software development
+            opportunity.
           </p>
 
-          <form className="about-contact-form" onSubmit={handleContactSubmit}>
+          <form
+            className="about-contact-form"
+            onSubmit={handleContactSubmit}
+          >
             <label>
               Name
+
               <input
                 type="text"
                 value={contactForm.name}
                 onChange={(event) =>
-                  updateContactForm("name", event.target.value)
+                  updateContactForm(
+                    "name",
+                    event.target.value
+                  )
                 }
                 placeholder="Your name"
                 required
@@ -163,11 +219,15 @@ ${contactForm.message}
 
             <label>
               Email
+
               <input
                 type="email"
                 value={contactForm.email}
                 onChange={(event) =>
-                  updateContactForm("email", event.target.value)
+                  updateContactForm(
+                    "email",
+                    event.target.value
+                  )
                 }
                 placeholder="your@email.com"
                 required
@@ -176,20 +236,31 @@ ${contactForm.message}
 
             <label>
               Message
+
               <textarea
                 rows={5}
                 value={contactForm.message}
                 onChange={(event) =>
-                  updateContactForm("message", event.target.value)
+                  updateContactForm(
+                    "message",
+                    event.target.value
+                  )
                 }
                 placeholder="Tell me what you need help with..."
                 required
               />
             </label>
 
-            {formNotice && <p className="about-form-notice">{formNotice}</p>}
+            {formNotice && (
+              <p className="about-form-notice">
+                {formNotice}
+              </p>
+            )}
 
-            <button type="submit" className="btn about-form-submit">
+            <button
+              type="submit"
+              className="btn about-form-submit"
+            >
               Send Message
             </button>
           </form>
@@ -197,12 +268,45 @@ ${contactForm.message}
           <div className="about-contact-mini-grid">
             <div>
               <span>Email</span>
-              <strong>vansuliva4@gmail.com</strong>
+
+              <strong>
+                <a href="mailto:vansuliva4@gmail.com">
+                  vansuliva4@gmail.com
+                </a>
+              </strong>
             </div>
 
             <div>
               <span>Location</span>
               <strong>Tarlac, Philippines</strong>
+            </div>
+
+            <div>
+              <span>LinkedIn</span>
+
+              <strong>
+                <a
+                  href={linkedInUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Profile ↗
+                </a>
+              </strong>
+            </div>
+
+            <div>
+              <span>GitHub</span>
+
+              <strong>
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Repositories ↗
+                </a>
+              </strong>
             </div>
           </div>
         </aside>
@@ -210,110 +314,139 @@ ${contactForm.message}
 
       <section className="about-summary-section">
         <div className="about-summary-card">
-          <p className="section-kicker">Professional Summary</p>
+          <p className="section-kicker">
+            Professional Summary
+          </p>
 
-          <h2>Building useful systems with purpose, discipline, and curiosity.</h2>
+          <h2>
+            Building useful systems with purpose,
+            discipline, and curiosity.
+          </h2>
 
           <p>
-            I am eager to contribute to building, improving, and maintaining
-            software solutions while continuing to grow in programming, web
-            development, databases, networking, and modern development
-            practices.
+            I am eager to contribute to building, improving,
+            and maintaining software solutions while
+            continuing to grow in programming, web
+            development, databases, networking, and modern
+            development practices.
           </p>
         </div>
       </section>
 
+      <section className="about-education-section enhanced-education-section">
+        <div className="about-section-heading education-heading-enhanced">
+          <p className="section-kicker">Education</p>
 
-<section className="about-education-section enhanced-education-section">
-  <div className="about-section-heading education-heading-enhanced">
-    <p className="section-kicker">Education</p>
-    <h2>Academic Background</h2>
-    <p>
-      My academic path focuses on information technology, software development,
-      networking, and continuous professional growth.
-    </p>
-  </div>
+          <h2>Academic Background</h2>
 
-  <div className="education-journey">
-  
-
-    <article className="education-card">
-      <div className="education-card-marker">
-        <span>02</span>
-      </div>
-
-      <div className="education-card-content">
-        <div className="education-card-top">
-          <span className="about-year-pill">August 2022 - July 2026</span>
-          <strong>Undergraduate</strong>
+          <p>
+            My academic path focuses on information
+            technology, software development, networking, and
+            continuous professional growth.
+          </p>
         </div>
 
-        <h3>Tarlac State University</h3>
+        <div className="education-journey">
+          <article className="education-card">
+            <div className="education-card-marker">
+              <span>01</span>
+            </div>
 
-        <h4>
-          Bachelor of Science in Information Technology specializing in Network
-          and Administration
-        </h4>
+            <div className="education-card-content">
+              <div className="education-card-top">
+                <span className="about-year-pill">
+                  August 2022 - July 2026
+                </span>
 
-        <p>
-          Built a strong foundation in programming, databases, systems,
-          networking, web development, and IT project implementation.
-        </p>
+                <strong>Undergraduate</strong>
+              </div>
 
-        <div className="about-achievement-list education-achievement-list">
-          {achievements.map((achievement) => (
-            <span key={achievement}>{achievement}</span>
-          ))}
+              <h3>Tarlac State University</h3>
+
+              <h4>
+                Bachelor of Science in Information Technology
+                specializing in Network and Administration
+              </h4>
+
+              <p>
+                Built a strong foundation in programming,
+                databases, systems, networking, web
+                development, and IT project implementation.
+              </p>
+
+              <div className="about-achievement-list education-achievement-list">
+                {achievements.map((achievement) => (
+                  <span key={achievement}>
+                    {achievement}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+
+          <article className="education-card">
+            <div className="education-card-marker">
+              <span>02</span>
+            </div>
+
+            <div className="education-card-content">
+              <div className="education-card-top">
+                <span className="about-year-pill">
+                  2020 - 2022
+                </span>
+
+                <strong>Senior High</strong>
+              </div>
+
+              <h3>
+                St. Vincent School Foundation, Inc.
+              </h3>
+
+              <h4>STEM Strand</h4>
+
+              <p>
+                Developed academic discipline,
+                problem-solving skills, and a stronger
+                interest in science, technology, and
+                analytical thinking.
+              </p>
+
+              <div className="education-focus-grid">
+                <span>STEM</span>
+                <span>Research</span>
+                <span>Problem Solving</span>
+              </div>
+            </div>
+          </article>
         </div>
-      </div>
-    </article>
-
-    <article className="education-card">
-      <div className="education-card-marker">
-        <span>03</span>
-      </div>
-
-      <div className="education-card-content">
-        <div className="education-card-top">
-          <span className="about-year-pill">2020 - 2022</span>
-          <strong>Senior High</strong>
-        </div>
-
-        <h3>St. Vincent School Foundation, Inc.</h3>
-
-        <h4>STEM Strand</h4>
-
-        <p>
-          Developed academic discipline, problem-solving skills, and a stronger
-          interest in science, technology, and analytical thinking.
-        </p>
-
-        <div className="education-focus-grid">
-          <span>STEM</span>
-          <span>Research</span>
-          <span>Problem Solving</span>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
+      </section>
 
       <section className="about-skills-section">
         <div className="about-section-heading center">
-          <p className="section-kicker">Technical Skills</p>
+          <p className="section-kicker">
+            Technical Skills
+          </p>
+
           <h2>Tools, Languages, and Technologies</h2>
 
           <p>
-            A focused technical stack across software development, backend
-            systems, databases, networking, cloud deployment, and IoT.
+            A focused technical stack across software
+            development, backend systems, databases,
+            networking, cloud deployment, and IoT.
           </p>
         </div>
 
         <div className="about-skills-grid">
           {skillGroups.map((group, index) => (
-            <article className="about-skill-card" key={group.title}>
+            <article
+              className="about-skill-card"
+              key={group.title}
+            >
               <div className="about-skill-card-top">
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
                 <strong>{group.title}</strong>
               </div>
 
@@ -330,12 +463,15 @@ ${contactForm.message}
       <section className="about-experience-section">
         <div className="about-section-heading">
           <p className="section-kicker">Experience</p>
+
           <h2>Work and Practical Background</h2>
         </div>
 
         <div className="about-experience-grid">
           <article className="about-experience-card featured">
-            <span className="about-year-pill">February 2026 - May 2026</span>
+            <span className="about-year-pill">
+              February 2026 - May 2026
+            </span>
 
             <h3>Software Developer Intern</h3>
 
@@ -344,25 +480,33 @@ ${contactForm.message}
             </p>
 
             <p>
-              Developed and implemented a custom management system to centralize
-              farmer profiles, rice seed distribution records, and cooperative
-              data. The system included Google Maps API integration for land
-              plotting and farm-location visualization to improve record
-              tracking, reporting, and office workflows.
+              Developed and implemented a custom management
+              system to centralize farmer profiles, rice seed
+              distribution records, and cooperative data. The
+              system included Google Maps API integration for
+              land plotting and farm-location visualization
+              to improve record tracking, reporting, and
+              office workflows.
             </p>
           </article>
 
           <article className="about-experience-card">
-            <span className="about-year-pill">2024 - Present</span>
+            <span className="about-year-pill">
+              2024 - Present
+            </span>
 
             <h3>Freelance Software Developer</h3>
 
-            <p className="about-company">Self-Employed</p>
+            <p className="about-company">
+              Self-Employed
+            </p>
 
             <p>
-              Develop web and mobile applications for clients, from requirements
-              gathering and UI/UX planning to development and deployment. I also
-              provide documentation, bug fixes, and ongoing feature improvements.
+              Develop web and mobile applications for
+              clients, from requirements gathering and UI/UX
+              planning to development and deployment. I also
+              provide documentation, bug fixes, and ongoing
+              feature improvements.
             </p>
           </article>
         </div>
@@ -371,21 +515,28 @@ ${contactForm.message}
       <section className="about-leadership-section">
         <div className="about-leadership-card refined-leadership-card">
           <div className="about-leadership-copy">
-            <p className="section-kicker">Leadership</p>
+            <p className="section-kicker">
+              Leadership
+            </p>
 
-            <h2>Serving through mentorship and community.</h2>
+            <h2>
+              Serving through mentorship and community.
+            </h2>
           </div>
 
           <div className="about-leadership-info">
             <h3>Youth Leader — Deep & Wide PH</h3>
 
             <p>
-              I mentor and guide youth members through faith-based activities
-              and group discussions, helping develop my communication,
-              teaching, and leadership skills.
+              I mentor and guide youth members through
+              faith-based activities and group discussions,
+              helping develop my communication, teaching, and
+              leadership skills.
             </p>
 
-            <span className="about-year-pill">2024 - Present</span>
+            <span className="about-year-pill">
+              2024 - Present
+            </span>
           </div>
         </div>
       </section>
