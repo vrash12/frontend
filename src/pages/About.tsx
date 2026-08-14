@@ -149,7 +149,10 @@ ${contactForm.message}
             I’m an aspiring IT professional seeking a
             full-time role as a software developer where I
             can apply my technical knowledge, problem-solving
-            skills, and passion for innovation.
+            skills, and passion for innovation. I am currently
+            taking my Master in Information Technology at
+            Tarlac State University, which I started in August
+            2026.
           </p>
 
           <div className="about-hero-actions">
@@ -347,9 +350,43 @@ ${contactForm.message}
         </div>
 
         <div className="education-journey">
-          <article className="education-card">
+          <article className="education-card education-card-featured">
             <div className="education-card-marker">
               <span>01</span>
+            </div>
+
+            <div className="education-card-content">
+              <div className="education-card-top">
+                <span className="about-year-pill">
+                  August 2026 - Present
+                </span>
+
+                <strong>Graduate Studies</strong>
+              </div>
+
+              <h3>Tarlac State University</h3>
+
+              <h4>Master in Information Technology</h4>
+
+              <p>
+                I am currently pursuing my graduate studies
+                to deepen my knowledge in software
+                development, information systems, networking,
+                and modern technology solutions.
+              </p>
+
+              <div className="education-focus-grid">
+                <span>Graduate Studies</span>
+                <span>Information Systems</span>
+                <span>Software Development</span>
+                <span>Networking</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="education-card">
+            <div className="education-card-marker">
+              <span>02</span>
             </div>
 
             <div className="education-card-content">
@@ -386,7 +423,7 @@ ${contactForm.message}
 
           <article className="education-card">
             <div className="education-card-marker">
-              <span>02</span>
+              <span>03</span>
             </div>
 
             <div className="education-card-content">
