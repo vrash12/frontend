@@ -369,9 +369,6 @@ function Home() {
 
     <h2>Latest Builds</h2>
 
-    <p>
-      Selected projects pulled directly from your backend project manager.
-    </p>
   </div>
 
   {projectsLoading ? (
