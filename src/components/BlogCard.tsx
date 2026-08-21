@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { BlogPost } from "../types";
-import { getImageUrl } from "../api/client";
+import { getThumbnailUrl } from "../api/client";
 
 type BlogCardProps = {
   post: BlogPost;
@@ -31,9 +31,11 @@ function BlogCard({ post }: BlogCardProps) {
       <div className="blog-card-media">
         {coverImage ? (
           <img
-            src={getImageUrl(coverImage)}
+            src={getThumbnailUrl(coverImage, 900)}
             alt={post.title}
             className="blog-image"
+            loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="blog-image-placeholder">

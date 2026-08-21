@@ -76,9 +76,6 @@ function CreateProject() {
       console.error("Failed to create project:", error);
 
       if (error.response?.status === 401) {
-        localStorage.removeItem("portfolio_token");
-        localStorage.removeItem("portfolio_user");
-
         setErrorMessage("Your login expired. Please login again.");
         navigate("/login");
         return;

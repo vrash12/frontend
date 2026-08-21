@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { api, getImageUrl } from "../api/client";
+import {
+  api,
+  getImageUrl,
+  getThumbnailUrl,
+} from "../api/client";
 import type { Project, ProjectImage } from "../types";
+import DeferredVideo from "../components/DeferredVideo";
 
 type ProjectVideo = {
   id: number;
@@ -79,29 +84,29 @@ function ProjectDetails() {
     setSelectedImageIndex(index);
   }
 
-  function closeImageModal() {
+  const closeImageModal = useCallback(() => {
     setSelectedImageIndex(null);
-  }
+  }, []);
 
-  function showPreviousImage() {
-    if (selectedImageIndex === null || galleryImages.length === 0) return;
+  const showPreviousImage = useCallback(() => {
+    if (galleryImages.length === 0) return;
 
     setSelectedImageIndex((currentIndex) => {
       if (currentIndex === null) return null;
 
       return currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
     });
-  }
+  }, [galleryImages.length]);
 
-  function showNextImage() {
-    if (selectedImageIndex === null || galleryImages.length === 0) return;
+  const showNextImage = useCallback(() => {
+    if (galleryImages.length === 0) return;
 
     setSelectedImageIndex((currentIndex) => {
       if (currentIndex === null) return null;
 
       return currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
     });
-  }
+  }, [galleryImages.length]);
 
   useEffect(() => {
     if (selectedImageIndex === null) return;
@@ -127,7 +132,12 @@ function ProjectDetails() {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectedImageIndex, galleryImages.length]);
+  }, [
+    closeImageModal,
+    selectedImageIndex,
+    showNextImage,
+    showPreviousImage,
+  ]);
 
   if (loading) {
     return (
@@ -149,8 +159,7 @@ function ProjectDetails() {
     );
   }
 
-const heroImage = project.image || project.images?.[0]?.image || "";
-  const firstVideo = projectVideos[0]?.video || "";
+  const heroImage = project.image || project.images?.[0]?.image || "";
 
   const technologies = project.technologies
     ? project.technologies
@@ -164,18 +173,11 @@ const heroImage = project.image || project.images?.[0]?.image || "";
       <section className="project-detail-hero">
         {heroImage ? (
           <img
-            src={getImageUrl(heroImage)}
+            src={getThumbnailUrl(heroImage, 1600)}
             alt={project.title}
             className="project-detail-hero-bg"
-          />
-        ) : firstVideo ? (
-          <video
-            src={getImageUrl(firstVideo)}
-            className="project-detail-hero-bg"
-            muted
-            autoPlay
-            loop
-            playsInline
+            fetchPriority="high"
+            decoding="async"
           />
         ) : null}
 
@@ -271,11 +273,15 @@ const heroImage = project.image || project.images?.[0]?.image || "";
                   key={`${video.id}-${video.video}`}
                   className="project-detail-video-card"
                 >
-                  <video
+                  <DeferredVideo
                     src={getImageUrl(video.video)}
+                    poster={
+                      heroImage
+                        ? getThumbnailUrl(heroImage, 1200)
+                        : undefined
+                    }
                     className="project-detail-video"
-                    controls
-                    preload="metadata"
+                    label={`Play ${project.title} video ${index + 1}`}
                   />
 
                   <div className="project-detail-video-caption">
@@ -314,8 +320,10 @@ const heroImage = project.image || project.images?.[0]?.image || "";
                     aria-label={`Open project image ${index + 1}`}
                   >
                     <img
-                      src={getImageUrl(image.image)}
+                      src={getThumbnailUrl(image.image, 900)}
                       alt={`${project.title} screenshot ${index + 1}`}
+                      loading="lazy"
+                      decoding="async"
                     />
 
                     <span>Open Image</span>
@@ -379,6 +387,7 @@ const heroImage = project.image || project.images?.[0]?.image || "";
                   selectedImageIndex + 1
                 }`}
                 className="project-modal-image"
+                decoding="async"
               />
 
               <button

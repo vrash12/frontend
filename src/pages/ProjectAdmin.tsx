@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { api, getImageUrl } from "../api/client";
+import {
+  api,
+  getImageUrl,
+  getThumbnailUrl,
+} from "../api/client";
 import type { Project } from "../types";
+import DeferredVideo from "../components/DeferredVideo";
 
 const categories = [
   "Software Development",
@@ -225,9 +230,6 @@ function ProjectAdmin() {
       console.error("Failed to save project:", error);
 
       if (error.response?.status === 401) {
-        localStorage.removeItem("portfolio_token");
-        localStorage.removeItem("portfolio_user");
-
         setErrorMessage("Your login expired. Please login again.");
         return;
       }
@@ -266,9 +268,6 @@ function ProjectAdmin() {
       console.error("Failed to delete project:", error);
 
       if (error.response?.status === 401) {
-        localStorage.removeItem("portfolio_token");
-        localStorage.removeItem("portfolio_user");
-
         setErrorMessage("Your login expired. Please login again.");
         return;
       }
@@ -570,19 +569,20 @@ function ProjectAdmin() {
 
                 return (
                   <article className="project-admin-card" key={project.id}>
-                    {firstVideo ? (
-                      <video
-                        src={getImageUrl(firstVideo)}
-                        className="project-admin-video"
-                        controls
-                        muted
-                        preload="metadata"
-                      />
-                    ) : coverImageUrl ? (
+                    {coverImageUrl ? (
                       <img
-                        src={getImageUrl(coverImageUrl)}
+                        src={getThumbnailUrl(coverImageUrl, 900)}
                         alt={project.title}
                         className="project-admin-image"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : firstVideo ? (
+                      <DeferredVideo
+                        src={getImageUrl(firstVideo)}
+                        className="project-admin-video"
+                        label={`Play ${project.title} preview`}
+                        muted
                       />
                     ) : (
                       <div className="project-admin-placeholder">

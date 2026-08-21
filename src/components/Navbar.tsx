@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
+import { useAuth } from "../auth/useAuth";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -26,12 +27,12 @@ function getSessionId() {
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout } = useAuth();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isLoggedIn = Boolean(user);
 
   useEffect(() => {
-    setIsLoggedIn(Boolean(localStorage.getItem("portfolio_token")));
     setIsMenuOpen(false);
   }, [location.pathname]);
 
@@ -42,20 +43,17 @@ function Navbar() {
         path,
         current_path: location.pathname,
         session_id: getSessionId(),
-        user_type: isLoggedIn ? "admin" : "visitor",
       })
       .catch((error) => {
         console.error("Failed to track nav click:", error);
       });
   }
 
-  function handleLogout() {
+  async function handleLogout() {
     trackNavClick("Logout", "/logout");
 
-    localStorage.removeItem("portfolio_token");
-    localStorage.removeItem("portfolio_user");
+    await logout();
 
-    setIsLoggedIn(false);
     setIsMenuOpen(false);
     navigate("/");
   }
@@ -75,11 +73,23 @@ function Navbar() {
         }}
       >
         <div className="brand-logo-icon">
-          <img src="/images/brand/space-logo.png" alt="VRMS space logo" />
+          <img
+            src="/images/brand/space-logo.webp"
+            alt="VRMS space logo"
+            width="495"
+            height="504"
+            decoding="async"
+          />
         </div>
 
         <div className="brand-wordmark">
-          <img src="/images/brand/vrms-wordmark.png" alt="VRMS" />
+          <img
+            src="/images/brand/vrms-wordmark.webp"
+            alt="VRMS"
+            width="954"
+            height="261"
+            decoding="async"
+          />
         </div>
       </NavLink>
 

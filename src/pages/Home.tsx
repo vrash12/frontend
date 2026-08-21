@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
-import { api, getImageUrl } from "../api/client";
+import { api, getThumbnailUrl } from "../api/client";
 import type { BlogPost, Project } from "../types";
 
 const skillPath = "/images/logos-skill";
@@ -35,18 +35,18 @@ const missionCards = [
     label: "Build",
     description:
       "I design and develop web applications, dashboards, APIs, and full-stack systems that solve real problems.",
-    image: `${skillPath}/logo2.png`,
+    image: `${skillPath}/logo2.webp`,
     fallback: "💻",
     accent: "#ff7a00",
     tools: [
-      { name: "React", image: `${skillPath}/logo2.png` },
-      { name: "HTML5", image: `${skillPath}/logo4.png` },
-      { name: "PHP", image: `${skillPath}/logo14.png` },
-      { name: "Java", image: `${skillPath}/logo13.png` },
-      { name: "Django", image: `${skillPath}/logo11.png` },
-      { name: "Flask", image: `${skillPath}/logo17.png` },
-      { name: "Docker", image: `${skillPath}/logo18.png` },
-      { name: "Vite", image: `${skillPath}/logo20.png` },
+      { name: "React", image: `${skillPath}/logo2.webp` },
+      { name: "HTML5", image: `${skillPath}/logo4.webp` },
+      { name: "PHP", image: `${skillPath}/logo14.webp` },
+      { name: "Java", image: `${skillPath}/logo13.webp` },
+      { name: "Django", image: `${skillPath}/logo11.webp` },
+      { name: "Flask", image: `${skillPath}/logo17.webp` },
+      { name: "Docker", image: `${skillPath}/logo18.webp` },
+      { name: "Vite", image: `${skillPath}/logo20.webp` },
     ],
   },
   {
@@ -54,15 +54,15 @@ const missionCards = [
     label: "Analyze",
     description:
       "I work with data cleaning, visualization, analysis, and machine learning workflows to turn raw data into useful insights.",
-    image: `${skillPath}/logo10.png`,
+    image: `${skillPath}/logo10.webp`,
     fallback: "📊",
     accent: "#0057ff",
     tools: [
-      { name: "Python", image: `${skillPath}/logo10.png` },
-      { name: "R", image: `${skillPath}/logo7.png` },
-      { name: "Anaconda", image: `${skillPath}/logo15.png` },
-      { name: "TensorFlow", image: `${skillPath}/logo6.png` },
-      { name: "Docker", image: `${skillPath}/logo18.png` },
+      { name: "Python", image: `${skillPath}/logo10.webp` },
+      { name: "R", image: `${skillPath}/logo7.webp` },
+      { name: "Anaconda", image: `${skillPath}/logo15.webp` },
+      { name: "TensorFlow", image: `${skillPath}/logo6.webp` },
+      { name: "Docker", image: `${skillPath}/logo18.webp` },
     ],
   },
   {
@@ -70,15 +70,15 @@ const missionCards = [
     label: "Automate",
     description:
       "I explore AI-powered tools, intelligent systems, automation, and practical machine learning applications.",
-    image: `${skillPath}/logo6.png`,
+    image: `${skillPath}/logo6.webp`,
     fallback: "🤖",
     accent: "#7c3cff",
     tools: [
-      { name: "TensorFlow", image: `${skillPath}/logo6.png` },
-      { name: "Python", image: `${skillPath}/logo10.png` },
-      { name: "C++", image: `${skillPath}/logo9.png` },
-      { name: ".NET Core", image: `${skillPath}/logo3.png` },
-      { name: "Flutter", image: `${skillPath}/logo12.png` },
+      { name: "TensorFlow", image: `${skillPath}/logo6.webp` },
+      { name: "Python", image: `${skillPath}/logo10.webp` },
+      { name: "C++", image: `${skillPath}/logo9.webp` },
+      { name: ".NET Core", image: `${skillPath}/logo3.webp` },
+      { name: "Flutter", image: `${skillPath}/logo12.webp` },
     ],
   },
 ];
@@ -263,17 +263,25 @@ function Home() {
             <div className="hero-flip-inner">
               <div className="hero-flip-face hero-flip-front">
                 <img
-                  src="/images/profile-space.png"
+                  src="/images/profile-space.webp"
                   alt="Van Rodolf Suiva portfolio profile orange space theme"
                   className="hero-profile-image"
+                  width="1017"
+                  height="1546"
+                  fetchPriority="high"
+                  decoding="async"
                 />
               </div>
 
               <div className="hero-flip-face hero-flip-back">
                 <img
-                  src="/images/profile-space-dark.png"
+                  src="/images/profile-space-dark.webp"
                   alt="Van Rodolf Suiva portfolio profile dark space theme"
                   className="hero-profile-image"
+                  width="1017"
+                  height="1546"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -315,6 +323,8 @@ function Home() {
                 <img
                   src={card.image}
                   alt={card.title}
+                  loading="lazy"
+                  decoding="async"
                   onError={(event) => {
                     event.currentTarget.style.display = "none";
 
@@ -346,6 +356,8 @@ function Home() {
                         <img
                           src={tool.image}
                           alt={tool.name}
+                          loading="lazy"
+                          decoding="async"
                           onError={(event) => {
                             event.currentTarget.style.display = "none";
                           }}
@@ -390,9 +402,11 @@ function Home() {
 
           {project.image && (
             <img
-              src={getImageUrl(project.image)}
+              src={getThumbnailUrl(project.image, 900)}
               alt={project.title}
               className="home-project-image"
+              loading="lazy"
+              decoding="async"
             />
           )}
 
@@ -453,9 +467,11 @@ function Home() {
             <div className="home-blog-media">
               {coverImage ? (
                 <img
-                  src={getImageUrl(coverImage)}
+                  src={getThumbnailUrl(coverImage, 900)}
                   alt={blog.title}
                   className="home-blog-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="home-blog-placeholder">

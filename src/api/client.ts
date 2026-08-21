@@ -6,17 +6,21 @@ export const API_BASE_URL = (
 
 export const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
+  withCredentials: true,
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("portfolio_token");
+export const AUTH_UNAUTHORIZED_EVENT = "portfolio:unauthorized";
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      window.dispatchEvent(new Event(AUTH_UNAUTHORIZED_EVENT));
+    }
+
+    return Promise.reject(error);
   }
-
-  return config;
-});
+);
 
 export function getImageUrl(image?: string | null) {
   if (!image) return "";
@@ -30,4 +34,28 @@ export function getImageUrl(image?: string | null) {
   }
 
   return `${API_BASE_URL}/static/images/${image}`;
+}
+
+export function getThumbnailUrl(
+  image?: string | null,
+  width = 900
+) {
+  if (!image) return "";
+
+  if (image.startsWith("http")) {
+    return image;
+  }
+
+  const filename = image.split("/").filter(Boolean).pop();
+
+  if (!filename) return getImageUrl(image);
+
+  const normalizedWidth = Math.min(
+    1600,
+    Math.max(320, Math.round(width))
+  );
+
+  return `${API_BASE_URL}/static/thumbnails/${encodeURIComponent(
+    filename
+  )}?w=${normalizedWidth}`;
 }

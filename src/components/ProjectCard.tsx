@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Project } from "../types";
-import { getImageUrl } from "../api/client";
+import { getThumbnailUrl } from "../api/client";
 
 type ProjectImage = {
   id: number;
@@ -32,21 +32,17 @@ function ProjectCard({ project }: ProjectCardProps) {
       <div className="project-card-media">
   {coverImage ? (
   <img
-    src={getImageUrl(coverImage)}
+    src={getThumbnailUrl(coverImage, 900)}
     alt={project.title}
     className="project-image"
-  />
-) : hasVideo && project.video ? (
-  <video
-    src={getImageUrl(project.video)}
-    className="project-image project-video"
-    controls
-    muted
-    preload="metadata"
+    loading="lazy"
+    decoding="async"
   />
 ) : (
           <div className="project-placeholder">
-            <span>{project.category || "Project"}</span>
+            <span>
+              {hasVideo ? "Video Demo" : project.category || "Project"}
+            </span>
           </div>
         )}
 

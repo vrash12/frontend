@@ -1,12 +1,14 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import type { AxiosError } from "axios";
 import { api } from "../api/client";
+import { useAuth } from "../auth/useAuth";
 
 type LoginResponse = {
   message: string;
-  token: string;
-  user: {
+  mfaRequired?: boolean;
+  user?: {
     id: number;
     name: string;
     email: string;
@@ -16,9 +18,12 @@ type LoginResponse = {
 
 function Login() {
   const navigate = useNavigate();
+  const { refreshSession } = useAuth();
 
-  const [email, setEmail] = useState("admin@example.com");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [mfaRequired, setMfaRequired] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -32,15 +37,29 @@ function Login() {
       const response = await api.post<LoginResponse>("/auth/login", {
         email,
         password,
+        ...(otp ? { otp } : {}),
       });
 
-      localStorage.setItem("portfolio_token", response.data.token);
-      localStorage.setItem("portfolio_user", JSON.stringify(response.data.user));
+      if (response.data.mfaRequired) {
+        setMfaRequired(true);
+        return;
+      }
+
+      const user = await refreshSession();
+
+      if (!user) {
+        setErrorMessage("The secure session could not be established.");
+        return;
+      }
 
       navigate("/blogs/new");
     } catch (error) {
       console.error("Login failed:", error);
-      setErrorMessage("Invalid email or password.");
+
+      const requestError = error as AxiosError<{ message?: string }>;
+      setErrorMessage(
+        requestError.response?.data?.message || "Login was unsuccessful."
+      );
     } finally {
       setLoading(false);
     }
@@ -64,7 +83,10 @@ function Login() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="admin@example.com"
+              placeholder="Enter your administrator email"
+              autoComplete="username"
+              maxLength={254}
+              required
             />
           </label>
 
@@ -75,13 +97,45 @@ function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Enter your password"
+              autoComplete="current-password"
+              maxLength={256}
+              required
             />
           </label>
+
+          {mfaRequired && (
+            <>
+              <p className="form-success">
+                Enter the six-digit code from your authenticator app.
+              </p>
+
+              <label>
+                Authenticator Code
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]{6}"
+                  value={otp}
+                  onChange={(event) =>
+                    setOtp(event.target.value.replace(/\D/g, "").slice(0, 6))
+                  }
+                  placeholder="000000"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  required
+                />
+              </label>
+            </>
+          )}
 
           {errorMessage && <p className="form-error">{errorMessage}</p>}
 
           <button className="btn" type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading
+              ? "Verifying..."
+              : mfaRequired
+                ? "Verify and Login"
+                : "Login"}
           </button>
         </form>
       </section>

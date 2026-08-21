@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { api, getImageUrl } from "../api/client";
+import { api, getThumbnailUrl } from "../api/client";
 import type { BlogPost } from "../types";
 
 const categories = ["Hiking", "Motorcycle", "Travel"];
@@ -155,9 +155,6 @@ function BlogAdmin() {
       console.error("Failed to save blog:", error);
 
       if (error.response?.status === 401) {
-        localStorage.removeItem("portfolio_token");
-        localStorage.removeItem("portfolio_user");
-
         setErrorMessage("Your login expired. Please login again.");
         return;
       }
@@ -196,9 +193,6 @@ function BlogAdmin() {
       console.error("Failed to delete blog:", error);
 
       if (error.response?.status === 401) {
-        localStorage.removeItem("portfolio_token");
-        localStorage.removeItem("portfolio_user");
-
         setErrorMessage("Your login expired. Please login again.");
         return;
       }
@@ -410,9 +404,11 @@ function BlogAdmin() {
                   <article className="blog-admin-card" key={post.id}>
                     {coverImage ? (
                       <img
-                        src={getImageUrl(coverImage)}
+                        src={getThumbnailUrl(coverImage, 900)}
                         alt={post.title}
                         className="blog-admin-image"
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <div className="blog-admin-placeholder">

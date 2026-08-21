@@ -1,27 +1,38 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Blog from "./pages/Blog";
-import BlogDetails from "./pages/BlogDetails";
-import CreateBlog from "./pages/CreateBlog";
-import BlogAdmin from "./pages/BlogAdmin";
-import Projects from "./pages/Projects";
-import ProjectDetails from "./pages/ProjectDetails";
-import CreateProject from "./pages/CreateProject";
-import ProjectAdmin from "./pages/ProjectAdmin";
-import AdminAnalytics from "./pages/AdminAnalytics";
-import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./auth/AuthContext";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetails = lazy(() => import("./pages/BlogDetails"));
+const CreateBlog = lazy(() => import("./pages/CreateBlog"));
+const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
+const CreateProject = lazy(() => import("./pages/CreateProject"));
+const ProjectAdmin = lazy(() => import("./pages/ProjectAdmin"));
+const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
+const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <AuthProvider>
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+        <Suspense
+          fallback={
+            <main className="route-loading" aria-live="polite">
+              <span className="route-loading-orbit" aria-hidden="true" />
+              <p>Loading mission...</p>
+            </main>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
 
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blogs/:id" element={<BlogDetails />} />
@@ -74,9 +85,11 @@ function App() {
           }
         />
 
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

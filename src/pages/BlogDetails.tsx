@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { api, getImageUrl } from "../api/client";
+import {
+  api,
+  getImageUrl,
+  getThumbnailUrl,
+} from "../api/client";
 import type { BlogImage, BlogPost } from "../types";
+import { sanitizeBlogHtml } from "../utils/sanitizeBlogHtml";
 
 function formatDate(date?: string | null) {
   if (!date) return "";
@@ -41,34 +46,38 @@ function BlogDetails() {
   const galleryImages: BlogImage[] = post?.images || [];
   const selectedImage =
     selectedImageIndex !== null ? galleryImages[selectedImageIndex] : null;
+  const sanitizedBody = useMemo(
+    () => sanitizeBlogHtml(post?.body || ""),
+    [post?.body]
+  );
 
   function openImage(index: number) {
     setSelectedImageIndex(index);
   }
 
-  function closeImageModal() {
+  const closeImageModal = useCallback(() => {
     setSelectedImageIndex(null);
-  }
+  }, []);
 
-  function showPreviousImage() {
-    if (selectedImageIndex === null || galleryImages.length === 0) return;
+  const showPreviousImage = useCallback(() => {
+    if (galleryImages.length === 0) return;
 
     setSelectedImageIndex((currentIndex) => {
       if (currentIndex === null) return null;
 
       return currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
     });
-  }
+  }, [galleryImages.length]);
 
-  function showNextImage() {
-    if (selectedImageIndex === null || galleryImages.length === 0) return;
+  const showNextImage = useCallback(() => {
+    if (galleryImages.length === 0) return;
 
     setSelectedImageIndex((currentIndex) => {
       if (currentIndex === null) return null;
 
       return currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
     });
-  }
+  }, [galleryImages.length]);
 
   useEffect(() => {
     if (selectedImageIndex === null) return;
@@ -94,7 +103,12 @@ function BlogDetails() {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectedImageIndex, galleryImages.length]);
+  }, [
+    closeImageModal,
+    selectedImageIndex,
+    showNextImage,
+    showPreviousImage,
+  ]);
 
   if (loading) {
     return (
@@ -130,9 +144,11 @@ function BlogDetails() {
       <section className="adventure-hero-neo">
         {heroImage && (
           <img
-            src={getImageUrl(heroImage)}
+            src={getThumbnailUrl(heroImage, 1600)}
             alt={post.title}
             className="adventure-hero-bg"
+            fetchPriority="high"
+            decoding="async"
           />
         )}
 
@@ -194,8 +210,10 @@ function BlogDetails() {
                       aria-label={`Open frame ${index + 1}`}
                     >
                       <img
-                        src={getImageUrl(image.image)}
+                        src={getThumbnailUrl(image.image, 900)}
                         alt={`${post.title} photo ${index + 1}`}
+                        loading="lazy"
+                        decoding="async"
                       />
 
                       <span className="gallery-hover-label">Open Frame</span>
@@ -219,7 +237,7 @@ function BlogDetails() {
 
             <div
               className="adventure-story-body"
-              dangerouslySetInnerHTML={{ __html: post.body }}
+              dangerouslySetInnerHTML={{ __html: sanitizedBody }}
             />
           </section>
         </article>
@@ -270,6 +288,7 @@ function BlogDetails() {
                 src={getImageUrl(selectedImage.image)}
                 alt={`${post.title} enlarged frame ${selectedImageIndex + 1}`}
                 className="neo-modal-image"
+                decoding="async"
               />
 
               <button
