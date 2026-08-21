@@ -141,12 +141,12 @@ function Navbar() {
         {isLoggedIn && (
           <>
             <NavLink
-              to="/project-admin"
+              to="/admin/projects"
               className={({ isActive }) =>
                 isActive ? "nav-link nav-write active" : "nav-link nav-write"
               }
               onClick={() => {
-                trackNavClick("Projects Admin", "/project-admin");
+                trackNavClick("Projects Admin", "/admin/projects");
                 setIsMenuOpen(false);
               }}
             >
@@ -154,12 +154,12 @@ function Navbar() {
             </NavLink>
 
             <NavLink
-              to="/blog-admin"
+              to="/admin/blogs"
               className={({ isActive }) =>
                 isActive ? "nav-link nav-write active" : "nav-link nav-write"
               }
               onClick={() => {
-                trackNavClick("Blogs Admin", "/blog-admin");
+                trackNavClick("Blogs Admin", "/admin/blogs");
                 setIsMenuOpen(false);
               }}
             >

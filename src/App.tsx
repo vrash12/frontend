@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthContext";
@@ -54,6 +54,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/blog-admin" element={<Navigate to="/admin/blogs" replace />} />
 
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
@@ -75,6 +76,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/project-admin" element={<Navigate to="/admin/projects" replace />} />
 
         <Route
           path="/admin/analytics"
