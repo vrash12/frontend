@@ -6,6 +6,14 @@ export type BlogImage = {
   created_at?: string;
 };
 
+export type BlogVideo = {
+  id: number;
+  blog_id: number;
+  video: string;
+  caption?: string | null;
+  created_at?: string;
+};
+
 export type BlogPost = {
   id: number;
   title: string;
@@ -13,6 +21,7 @@ export type BlogPost = {
   body: string;
   image?: string | null;
   images?: BlogImage[];
+  videos?: BlogVideo[];
   tags?: string | null;
   category?: string | null;
   location?: string | null;

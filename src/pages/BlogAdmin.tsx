@@ -31,6 +31,7 @@ function BlogAdmin() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [form, setForm] = useState<BlogFormState>(emptyForm);
   const [images, setImages] = useState<File[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
 
   const [editingId, setEditingId] = useState<number | null>(null);
   const [loadingPosts, setLoadingPosts] = useState(true);
@@ -84,6 +85,7 @@ function BlogAdmin() {
   function resetForm() {
     setForm(emptyForm);
     setImages([]);
+    setVideos([]);
     setEditingId(null);
     setErrorMessage("");
     setSuccessMessage("");
@@ -104,6 +106,7 @@ function BlogAdmin() {
     });
 
     setImages([]);
+    setVideos([]);
     setErrorMessage("");
     setSuccessMessage("");
 
@@ -139,6 +142,10 @@ function BlogAdmin() {
 
       images.forEach((image) => {
         formData.append("images", image);
+      });
+
+      videos.forEach((video) => {
+        formData.append("videos", video);
       });
 
       if (isEditing) {
@@ -333,6 +340,33 @@ function BlogAdmin() {
                 {images.map((image) => (
                   <span key={`${image.name}-${image.lastModified}`}>
                     {image.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <label>
+            Blog Videos
+            <input
+              type="file"
+              multiple
+              accept="video/mp4,video/webm,video/quicktime"
+              onChange={(event) => {
+                const selectedFiles = Array.from(event.target.files || []);
+                setVideos(selectedFiles);
+              }}
+            />
+          </label>
+
+          {videos.length > 0 && (
+            <div className="selected-images-preview">
+              <strong>{videos.length} video(s) selected</strong>
+
+              <div className="selected-images-grid">
+                {videos.map((video) => (
+                  <span key={`${video.name}-${video.lastModified}`}>
+                    {video.name}
                   </span>
                 ))}
               </div>

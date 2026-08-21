@@ -7,6 +7,7 @@ import {
 } from "../api/client";
 import type { BlogImage, BlogPost } from "../types";
 import { sanitizeBlogHtml } from "../utils/sanitizeBlogHtml";
+import DeferredVideo from "../components/DeferredVideo";
 
 function formatDate(date?: string | null) {
   if (!date) return "";
@@ -44,6 +45,7 @@ function BlogDetails() {
   }, [id]);
 
   const galleryImages: BlogImage[] = post?.images || [];
+  const blogVideos = post?.videos || [];
   const selectedImage =
     selectedImageIndex !== null ? galleryImages[selectedImageIndex] : null;
   const sanitizedBody = useMemo(
@@ -223,6 +225,40 @@ function BlogDetails() {
                       Frame {String(index + 1).padStart(2, "0")}
                     </figcaption>
                   </figure>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {blogVideos.length > 0 && (
+            <section className="project-detail-video-section">
+              <div className="adventure-section-heading adventure-section-heading-wide">
+                <p className="section-kicker">Journey Films</p>
+
+                <h2>Videos From the Adventure</h2>
+              </div>
+
+              <div className="project-detail-video-grid">
+                {blogVideos.map((video, index) => (
+                  <article
+                    key={`${video.id}-${video.video}`}
+                    className="project-detail-video-card"
+                  >
+                    <DeferredVideo
+                      src={getImageUrl(video.video)}
+                      poster={
+                        heroImage
+                          ? getThumbnailUrl(heroImage, 1200)
+                          : undefined
+                      }
+                      className="project-detail-video"
+                      label={`Play ${post.title} video ${index + 1}`}
+                    />
+
+                    <div className="project-detail-video-caption">
+                      <span>Video {String(index + 1).padStart(2, "0")}</span>
+                    </div>
+                  </article>
                 ))}
               </div>
             </section>
