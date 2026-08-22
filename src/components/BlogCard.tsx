@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { BlogPost } from "../types";
 import { getThumbnailUrl } from "../api/client";
+import { getPreferredBlogDescription } from "../data/blogEditorialContent";
 
 type BlogCardProps = {
   post: BlogPost;
@@ -62,7 +63,7 @@ function BlogCard({ post }: BlogCardProps) {
 
         <h2>{post.title}</h2>
 
-        <p>{post.description}</p>
+        <p>{getPreferredBlogDescription(post)}</p>
 
         {post.location && <p className="blog-location">📍 {post.location}</p>}
 

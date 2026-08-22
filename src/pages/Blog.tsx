@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { BlogPost } from "../types";
 import BlogCard from "../components/BlogCard";
+import { getPreferredBlogDescription } from "../data/blogEditorialContent";
 
 const defaultCategories = ["Hiking", "Motorcycle", "Travel"];
 
@@ -111,7 +112,7 @@ function Blog() {
 
               <h2>{latestPost.title}</h2>
 
-              <p>{latestPost.description}</p>
+              <p>{getPreferredBlogDescription(latestPost)}</p>
 
               <div className="blog-latest-meta">
                 <span>{latestPost.category || "Adventure"}</span>

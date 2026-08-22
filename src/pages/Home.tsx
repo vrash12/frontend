@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { api, getThumbnailUrl } from "../api/client";
 import type { BlogPost, Project } from "../types";
 import FlagshipCaseStudies from "../components/FlagshipCaseStudies";
+import { getPreferredBlogDescription } from "../data/blogEditorialContent";
 
 const skillPath = "/images/logos-skill";
 
@@ -428,7 +429,7 @@ function Home() {
 
               <h3>{blog.title}</h3>
 
-              <p>{blog.description}</p>
+              <p>{getPreferredBlogDescription(blog)}</p>
 
               {blog.location && (
                 <p className="blog-location">📍 {blog.location}</p>

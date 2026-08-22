@@ -8,6 +8,11 @@ import {
 import type { BlogImage, BlogPost } from "../types";
 import { sanitizeBlogHtml } from "../utils/sanitizeBlogHtml";
 import DeferredVideo from "../components/DeferredVideo";
+import {
+  getBlogEditorialContent,
+  getPreferredBlogDescription,
+  shouldUseEditorialBody,
+} from "../data/blogEditorialContent";
 
 function formatDate(date?: string | null) {
   if (!date) return "";
@@ -140,6 +145,9 @@ function BlogDetails() {
     : [];
 
   const heroImage = post.image || post.images?.[0]?.image || "";
+  const editorial = getBlogEditorialContent(post);
+  const preferredDescription = getPreferredBlogDescription(post);
+  const useEditorialBody = shouldUseEditorialBody(post.body);
 
   return (
     <main className="adventure-detail-page">
@@ -171,7 +179,7 @@ function BlogDetails() {
 
           <h1>{post.title}</h1>
 
-          <p>{post.description}</p>
+          <p>{preferredDescription}</p>
         </div>
       </section>
 
@@ -183,6 +191,43 @@ function BlogDetails() {
                 <span key={tag}>{tag}</span>
               ))}
             </div>
+          )}
+
+          {editorial && (
+            <section className="adventure-editorial-section">
+              <div className="adventure-editorial-heading">
+                <div>
+                  <p className="section-kicker">Beyond the Frames</p>
+                  <h2>What This Journey Meant</h2>
+                </div>
+
+                <p>
+                  A short reflection on the experience behind the photographs
+                  and the perspective I carried home.
+                </p>
+              </div>
+
+              <div className="adventure-editorial-grid">
+                <article>
+                  <span>01 · The setting</span>
+                  <p>{editorial.context}</p>
+                </article>
+
+                <article>
+                  <span>02 · What stayed with me</span>
+                  <p>{editorial.reflection}</p>
+                </article>
+
+                <aside>
+                  <span>Strengthened along the way</span>
+                  <div>
+                    {editorial.qualities.map((quality) => (
+                      <strong key={quality}>{quality}</strong>
+                    ))}
+                  </div>
+                </aside>
+              </div>
+            </section>
           )}
 
           {galleryImages.length > 0 && (
@@ -271,10 +316,20 @@ function BlogDetails() {
               <h2>The Full Adventure</h2>
             </div>
 
-            <div
-              className="adventure-story-body"
-              dangerouslySetInnerHTML={{ __html: sanitizedBody }}
-            />
+            {useEditorialBody && editorial ? (
+              <div className="adventure-story-body adventure-editorial-story">
+                {editorial.story.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+
+                <blockquote>{editorial.reflection}</blockquote>
+              </div>
+            ) : (
+              <div
+                className="adventure-story-body"
+                dangerouslySetInnerHTML={{ __html: sanitizedBody }}
+              />
+            )}
           </section>
         </article>
       </section>
