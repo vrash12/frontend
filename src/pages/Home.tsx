@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
 import { api, getThumbnailUrl } from "../api/client";
 import type { BlogPost, Project } from "../types";
+import FlagshipCaseStudies from "../components/FlagshipCaseStudies";
 
 const skillPath = "/images/logos-skill";
 
@@ -159,24 +160,18 @@ function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
 
-  const [projectsLoading, setProjectsLoading] = useState(true);
   const [blogsLoading, setBlogsLoading] = useState(true);
 
-  const [projectsError, setProjectsError] = useState("");
   const [blogsError, setBlogsError] = useState("");
 
   useEffect(() => {
     api
       .get<Project[]>("/projects")
       .then((response) => {
-        setProjects(response.data.slice(0, 3));
+        setProjects(response.data);
       })
       .catch((error) => {
         console.error("Failed to load projects:", error);
-        setProjectsError("Unable to load projects right now.");
-      })
-      .finally(() => {
-        setProjectsLoading(false);
       });
 
     api
@@ -375,63 +370,7 @@ function Home() {
       </section>
 
 
-<section className="launchpad-section home-projects-section">
-  <div className="section-heading light home-section-heading">
-    <p className="section-kicker home-kicker-dark">Project Launchpad</p>
-
-    <h2>Latest Builds</h2>
-
-  </div>
-
-  {projectsLoading ? (
-    <p className="dynamic-section-message">Loading projects...</p>
-  ) : projectsError ? (
-    <p className="dynamic-section-message">{projectsError}</p>
-  ) : projects.length === 0 ? (
-    <p className="dynamic-section-message">
-      No projects yet. Add your first project in the hidden admin page.
-    </p>
-  ) : (
-    <div className="home-project-grid">
-      {projects.map((project, index) => (
-        <article className="home-project-card" key={project.id}>
-          <div className="home-project-card-top">
-            <span className="home-project-number">0{index + 1}</span>
-            <span className="home-project-category">{project.category}</span>
-          </div>
-
-          {project.image && (
-            <img
-              src={getThumbnailUrl(project.image, 900)}
-              alt={project.title}
-              className="home-project-image"
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-
-          <div className="home-project-content">
-            <h3>{project.title}</h3>
-
-            <p>{project.description}</p>
-
-            {project.technologies && (
-              <p className="home-tech-line">
-                <strong>Tech:</strong> {project.technologies}
-              </p>
-            )}
-          </div>
-        </article>
-      ))}
-    </div>
-  )}
-
-  <div className="center-action">
-    <Link to="/projects" className="btn home-section-btn">
-      Explore All Projects
-    </Link>
-  </div>
-</section>
+      <FlagshipCaseStudies projects={projects} />
 
 
 <section className="blog-galaxy-section home-blogs-section">
