@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { Project } from "../types";
 import ProjectCard from "../components/ProjectCard";
+import { getPreferredProjectDescription } from "../data/projectCaseStudies";
 
 function formatDate(date?: string | null) {
   if (!date) return "Recently added";
@@ -147,7 +148,7 @@ function Projects() {
                 </h2>
 
                 <p className="collection-highlight-copy">
-                  {highlightedProject.description}
+                  {getPreferredProjectDescription(highlightedProject)}
                 </p>
 
                 <div className="collection-highlight-meta">

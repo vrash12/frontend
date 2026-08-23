@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Project } from "../types";
 import { getThumbnailUrl } from "../api/client";
+import { getPreferredProjectDescription } from "../data/projectCaseStudies";
 
 type ProjectImage = {
   id: number;
@@ -26,6 +27,7 @@ type ProjectCardProps = {
 function ProjectCard({ project }: ProjectCardProps) {
   const coverImage = project.image || project.images?.[0]?.image || "";
   const hasVideo = Boolean(project.video);
+  const preferredDescription = getPreferredProjectDescription(project);
 
   return (
     <article className="project-card neo-project-card hover-project-card">
@@ -66,7 +68,7 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         <h2>{project.title}</h2>
 
-        <p>{project.description}</p>
+        <p>{preferredDescription}</p>
 
         {project.technologies && (
           <p className="project-tech">

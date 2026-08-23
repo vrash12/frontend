@@ -7,6 +7,11 @@ import {
 } from "../api/client";
 import type { Project, ProjectImage } from "../types";
 import DeferredVideo from "../components/DeferredVideo";
+import {
+  getPreferredProjectDescription,
+  getProjectCaseStudy,
+  type ProjectCaseStudy,
+} from "../data/projectCaseStudies";
 
 type ProjectVideo = {
   id: number;
@@ -29,6 +34,105 @@ function formatDate(date?: string | null) {
     day: "numeric",
     year: "numeric",
   });
+}
+
+type ProjectCaseStudyContentProps = {
+  caseStudy: ProjectCaseStudy;
+  technologies: string[];
+};
+
+function ProjectCaseStudyContent({
+  caseStudy,
+  technologies,
+}: ProjectCaseStudyContentProps) {
+  const displayedTechnologies =
+    technologies.length > 0 ? technologies : caseStudy.technologies;
+
+  return (
+    <section
+      className="project-case-study-section"
+      aria-labelledby="project-case-study-title"
+    >
+      <div className="project-case-study-heading">
+        <div>
+          <p className="section-kicker">Engineering Case Study</p>
+          <h2 id="project-case-study-title">
+            From a real problem to a working system.
+          </h2>
+        </div>
+
+        <div className="project-case-study-result">
+          <span>Verified outcome</span>
+          <strong>{caseStudy.result}</strong>
+          <p>{caseStudy.resultLabel}</p>
+        </div>
+      </div>
+
+      <div className="project-case-study-narrative">
+        <article>
+          <span>01 · Business challenge</span>
+          <h3>Why it needed to be built</h3>
+          <p>{caseStudy.problem}</p>
+        </article>
+
+        <article>
+          <span>02 · My contribution</span>
+          <h3>What I designed and delivered</h3>
+          <p>{caseStudy.contribution}</p>
+        </article>
+
+        <article className="project-case-study-architecture">
+          <span>03 · Architecture</span>
+          <h3>How the parts work together</h3>
+          <p>{caseStudy.architecture}</p>
+        </article>
+      </div>
+
+      <div className="project-case-study-capabilities">
+        <div className="project-case-study-subheading">
+          <p className="section-kicker">Core Capabilities</p>
+          <h3>What the system enables</h3>
+        </div>
+
+        <div className="project-capability-grid">
+          {caseStudy.capabilities.map((capability, index) => (
+            <article key={capability.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h4>{capability.title}</h4>
+              <p>{capability.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="project-case-study-engineering">
+        <div>
+          <p className="section-kicker">Technology</p>
+          <h3>Tools selected for the job</h3>
+
+          <div
+            className="project-detail-tech-list"
+            aria-label="Project technologies"
+          >
+            {displayedTechnologies.map((technology) => (
+              <span key={technology}>{technology}</span>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="section-kicker">Engineering Delivery</p>
+          <h3>Security, testing and deployment</h3>
+
+          <ul>
+            {caseStudy.delivery.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function ProjectDetails() {
@@ -168,6 +272,9 @@ function ProjectDetails() {
         .filter(Boolean)
     : [];
 
+  const caseStudy = getProjectCaseStudy(project);
+  const preferredDescription = getPreferredProjectDescription(project);
+
   return (
     <main className="project-detail-page">
       <section className="project-detail-hero">
@@ -202,7 +309,7 @@ function ProjectDetails() {
 
           <h1>{project.title}</h1>
 
-          <p>{project.description}</p>
+          <p>{preferredDescription}</p>
 
           <div className="project-detail-actions">
             {project.github_url && (
@@ -231,31 +338,38 @@ function ProjectDetails() {
       </section>
 
       <section className="project-detail-shell">
-        <div className="project-detail-info-grid">
-          <article className="project-detail-story-card">
-            <p className="section-kicker">Project Overview</p>
+        {caseStudy ? (
+          <ProjectCaseStudyContent
+            caseStudy={caseStudy}
+            technologies={technologies}
+          />
+        ) : (
+          <div className="project-detail-info-grid">
+            <article className="project-detail-story-card">
+              <p className="section-kicker">Project Overview</p>
 
-            <h2>What This Project Is About</h2>
+              <h2>What This Project Is About</h2>
 
-            <p>{project.description}</p>
-          </article>
+              <p>{project.description}</p>
+            </article>
 
-          <aside className="project-detail-tech-card">
-            <p className="section-kicker">Tech Stack</p>
+            <aside className="project-detail-tech-card">
+              <p className="section-kicker">Tech Stack</p>
 
-            <h2>Tools Used</h2>
+              <h2>Tools Used</h2>
 
-            {technologies.length > 0 ? (
-              <div className="project-detail-tech-list">
-                {technologies.map((technology) => (
-                  <span key={technology}>{technology}</span>
-                ))}
-              </div>
-            ) : (
-              <p>No technologies listed.</p>
-            )}
-          </aside>
-        </div>
+              {technologies.length > 0 ? (
+                <div className="project-detail-tech-list">
+                  {technologies.map((technology) => (
+                    <span key={technology}>{technology}</span>
+                  ))}
+                </div>
+              ) : (
+                <p>No technologies listed.</p>
+              )}
+            </aside>
+          </div>
+        )}
 
         {projectVideos.length > 0 && (
           <section className="project-detail-video-section">

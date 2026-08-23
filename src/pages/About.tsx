@@ -5,7 +5,7 @@ const linkedInUrl =
   "https://www.linkedin.com/in/van-rodolf-suliva-779569380/";
 
 const githubUrl =
-  "https://github.com/YOUR-GITHUB-USERNAME";
+  "https://github.com/vrash12";
 
 const skillGroups = [
   {
