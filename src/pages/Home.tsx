@@ -228,7 +228,7 @@ function Home() {
           </h1>
 
           <p>
-            I’m Van Rodolf Suiva, a developer focused on software development,
+            I’m Van Rodolf Suliva, a developer focused on software development,
             data science, and artificial intelligence. I enjoy building
             practical, creative, and problem-solving driven projects.
           </p>
