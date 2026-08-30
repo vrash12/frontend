@@ -3,6 +3,8 @@ import { getThumbnailUrl } from "../api/client";
 import {
   findProjectForCaseStudy,
   flagshipCaseStudies,
+  PROJECT_OWNERSHIP_LABEL,
+  PROJECT_OWNERSHIP_STATEMENT,
 } from "../data/projectCaseStudies";
 import type { Project } from "../types";
 
@@ -79,6 +81,10 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
 
               <div className="flagship-content">
                 <p className="flagship-label">{caseStudy.label}</p>
+                <div className="flagship-ownership-note">
+                  <strong>{PROJECT_OWNERSHIP_LABEL}</strong>
+                  <span>{PROJECT_OWNERSHIP_STATEMENT}</span>
+                </div>
                 <h3>{caseStudy.title}</h3>
                 <p className="flagship-summary">{caseStudy.summary}</p>
 
@@ -89,7 +95,7 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
                   </section>
 
                   <section>
-                    <span>02 · My contribution</span>
+                    <span>02 · Sole development</span>
                     <p>{caseStudy.contribution}</p>
                   </section>
 

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import type { Project } from "../types";
 import { getThumbnailUrl } from "../api/client";
-import { getPreferredProjectDescription } from "../data/projectCaseStudies";
+import {
+  getPreferredProjectDescription,
+  PROJECT_OWNERSHIP_LABEL,
+  PROJECT_OWNERSHIP_STATEMENT,
+} from "../data/projectCaseStudies";
 
 type ProjectImage = {
   id: number;
@@ -61,12 +65,22 @@ function ProjectCard({ project }: ProjectCardProps) {
         <div className="blog-meta-row">
           <p className="project-category">{project.category}</p>
 
-          {project.featured === 1 && (
-            <span className="project-featured-pill">Featured</span>
-          )}
+          <div className="project-card-statuses">
+            <span className="project-ownership-pill">
+              {PROJECT_OWNERSHIP_LABEL}
+            </span>
+
+            {project.featured === 1 && (
+              <span className="project-featured-pill">Featured</span>
+            )}
+          </div>
         </div>
 
         <h2>{project.title}</h2>
+
+        <p className="project-card-ownership">
+          {PROJECT_OWNERSHIP_STATEMENT}
+        </p>
 
         <p>{preferredDescription}</p>
 

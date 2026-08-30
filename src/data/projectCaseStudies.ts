@@ -1,5 +1,9 @@
 import type { Project } from "../types";
 
+export const PROJECT_OWNERSHIP_LABEL = "Sole Developer";
+export const PROJECT_OWNERSHIP_STATEMENT =
+  "Independently designed and developed the complete software implementation.";
+
 export type ProjectCaseStudy = {
   matchTitle: string;
   projectId: number;

@@ -10,6 +10,8 @@ import DeferredVideo from "../components/DeferredVideo";
 import {
   getPreferredProjectDescription,
   getProjectCaseStudy,
+  PROJECT_OWNERSHIP_LABEL,
+  PROJECT_OWNERSHIP_STATEMENT,
   type ProjectCaseStudy,
 } from "../data/projectCaseStudies";
 
@@ -298,6 +300,10 @@ function ProjectDetails() {
           <div className="project-detail-meta">
             <span>{project.category}</span>
 
+            <span className="project-detail-ownership-pill">
+              {PROJECT_OWNERSHIP_LABEL}
+            </span>
+
             {project.created_at && <span>{formatDate(project.created_at)}</span>}
 
             {project.featured === 1 && <span>Featured Build</span>}
@@ -310,6 +316,11 @@ function ProjectDetails() {
           <h1>{project.title}</h1>
 
           <p>{preferredDescription}</p>
+
+          <div className="project-detail-ownership-note">
+            <strong>{PROJECT_OWNERSHIP_LABEL}</strong>
+            <span>{PROJECT_OWNERSHIP_STATEMENT}</span>
+          </div>
 
           <div className="project-detail-actions">
             {project.github_url && (
