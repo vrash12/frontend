@@ -53,7 +53,8 @@ const skillGroups = [
       "Docker",
       "AWS",
       "Google Cloud Run",
-      "ChatGPT/Copilot",
+      "Claude Code",
+      "Codex",
     ],
   },
 ];
@@ -146,13 +147,13 @@ ${contactForm.message}
           </h1>
 
           <p>
-            I’m an aspiring IT professional seeking a
-            full-time role as a software developer where I
-            can apply my technical knowledge, problem-solving
-            skills, and passion for innovation. I am currently
-            taking my Master in Information Technology at
-            Tarlac State University, which I started in August
-            2026.
+            I’m a versatile programmer and IT professional who
+            enjoys working across web, mobile, backend, AI,
+            databases, cloud, and IoT. I’m also passionate
+            about research that turns real-world problems into
+            practical, evidence-based technology. I am
+            currently pursuing my Master in Information
+            Technology at Tarlac State University.
           </p>
 
           <div className="about-hero-actions">
@@ -322,16 +323,24 @@ ${contactForm.message}
           </p>
 
           <h2>
-            Building useful systems with purpose,
-            discipline, and curiosity.
+            A versatile programmer driven by research,
+            purpose, and continuous learning.
           </h2>
 
           <p>
-            I am eager to contribute to building, improving,
-            and maintaining software solutions while
-            continuing to grow in programming, web
-            development, databases, networking, and modern
-            development practices.
+            I adapt across technologies based on the problem
+            being solved, from responsive interfaces and
+            production APIs to GIS, real-time tracking, AI,
+            and connected devices. Research is an important
+            part of how I work: I study the context, test
+            assumptions, gather feedback, and use evidence to
+            improve each solution. My goal is to build
+            reliable software that is technically sound and
+            genuinely useful to the people it serves. I also
+            use Claude Code and Codex as AI-assisted
+            development tools for research, architecture,
+            debugging, testing, and documentation, while
+            reviewing and validating the final work myself.
           </p>
         </div>
       </section>
