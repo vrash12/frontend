@@ -208,7 +208,7 @@ function Projects() {
               </p>
             </div>
 
-            <div className="collection-filter-summary">
+            <div className="collection-filter-summary" aria-live="polite" aria-atomic="true">
               <strong>{filteredProjects.length}</strong>
               <span>
                 {selectedCategory === "All"
@@ -233,6 +233,7 @@ function Projects() {
                         : "tag-button"
                     }
                     onClick={() => setSelectedCategory(category)}
+                    aria-pressed={selectedCategory === category}
                   >
                     {category}
                   </button>

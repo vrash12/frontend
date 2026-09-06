@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import PageMotion from "./components/PageMotion";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthContext";
 
@@ -31,6 +32,7 @@ function App() {
             </main>
           }
         >
+          <PageMotion />
           <Routes>
             <Route path="/" element={<Home />} />
 

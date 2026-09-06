@@ -137,7 +137,7 @@ function Blog() {
               <p>Filter posts based on the type of story you want to read.</p>
             </div>
 
-            <strong>{filteredPosts.length} shown</strong>
+            <strong aria-live="polite" aria-atomic="true">{filteredPosts.length} shown</strong>
           </div>
 
           <div className="blog-filter-group">
@@ -148,6 +148,7 @@ function Blog() {
                 <button
                   key={category}
                   type="button"
+                  aria-pressed={selectedCategory === category}
                   className={
                     selectedCategory === category
                       ? "tag-button active"
@@ -172,6 +173,7 @@ function Blog() {
                 <button
                   key={tag}
                   type="button"
+                  aria-pressed={selectedTag === tag}
                   className={selectedTag === tag ? "tag-button active" : "tag-button"}
                   onClick={() => setSelectedTag(tag)}
                 >

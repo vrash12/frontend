@@ -23,13 +23,13 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
           <p className="section-kicker flagship-kicker">Selected Work</p>
 
           <h2 id="flagship-case-studies-title">
-            Three systems. Real engineering decisions.
+            Selected systems. <span>Practical impact.</span>
           </h2>
         </div>
 
         <p>
-          Recruiter-ready case studies covering the problem, my contribution,
-          architecture, delivery practices, and evidence behind each build.
+          From public transport to community services and care. Explore the
+          systems, the decisions behind them, and what each build makes possible.
         </p>
       </div>
 
@@ -45,20 +45,17 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
           const projectId = project?.id || caseStudy.projectId;
 
           return (
-            <article
-              className={`flagship-card ${index % 2 === 1 ? "is-reversed" : ""}`}
-              key={caseStudy.title}
-            >
+            <article className="flagship-card" key={caseStudy.title}>
               <div className="flagship-visual">
-                <div className="flagship-visual-placeholder">
+                <div className="flagship-visual-placeholder" aria-hidden="true">
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <strong>{caseStudy.title}</strong>
                 </div>
 
                 {image && (
                   <img
-                    src={getThumbnailUrl(image, 1200)}
-                    alt={`${caseStudy.title} interface preview`}
+                    src={getThumbnailUrl(image, 720)}
+                    alt={`${caseStudy.title} project preview`}
                     className={index === 0 ? "flagship-image-contain" : undefined}
                     loading="lazy"
                     decoding="async"
@@ -70,39 +67,20 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
 
                 <div className="flagship-visual-topline">
                   <span>Case {String(index + 1).padStart(2, "0")}</span>
-                  <span>{caseStudy.label}</span>
-                </div>
-
-                <div className="flagship-result-card">
-                  <strong>{caseStudy.result}</strong>
-                  <span>{caseStudy.resultLabel}</span>
+                  <span>{PROJECT_OWNERSHIP_LABEL}</span>
                 </div>
               </div>
 
               <div className="flagship-content">
                 <p className="flagship-label">{caseStudy.label}</p>
-                <div className="flagship-ownership-note">
-                  <strong>{PROJECT_OWNERSHIP_LABEL}</strong>
-                  <span>{PROJECT_OWNERSHIP_STATEMENT}</span>
-                </div>
                 <h3>{caseStudy.title}</h3>
                 <p className="flagship-summary">{caseStudy.summary}</p>
 
-                <div className="flagship-story-grid">
-                  <section>
-                    <span>01 · Business problem</span>
-                    <p>{caseStudy.problem}</p>
-                  </section>
-
-                  <section>
-                    <span>02 · Sole development</span>
-                    <p>{caseStudy.contribution}</p>
-                  </section>
-
-                  <section className="flagship-architecture">
-                    <span>03 · Architecture</span>
-                    <p>{caseStudy.architecture}</p>
-                  </section>
+                <div className="flagship-result-card">
+                  <span className="flagship-result-mark" aria-hidden="true">
+                    ↗
+                  </span>
+                  <strong>{caseStudy.result}</strong>
                 </div>
 
                 <div className="flagship-stack" aria-label="Technologies used">
@@ -111,40 +89,41 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
                   ))}
                 </div>
 
-                <div className="flagship-delivery">
-                  <span>Security, testing &amp; deployment</span>
-                  <ul>
-                    {caseStudy.delivery.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-
                 <div className="flagship-actions">
-                  <Link to={`/projects/${projectId}`} className="btn">
-                    {caseStudy.proofLabel}
+                  <Link
+                    to={`/projects/${projectId}`}
+                    className="flagship-case-link"
+                    aria-label={`View ${caseStudy.title} case study`}
+                  >
+                    View case study <span aria-hidden="true">↗</span>
                   </Link>
 
-                  {githubUrl && (
-                    <a
-                      href={githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flagship-text-link"
-                    >
-                      GitHub repository <span aria-hidden="true">↗</span>
-                    </a>
-                  )}
+                  {(githubUrl || project?.live_url) && (
+                    <div className="flagship-secondary-links">
+                      {githubUrl && (
+                        <a
+                          href={githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flagship-text-link"
+                          aria-label={`${caseStudy.title} GitHub repository`}
+                        >
+                          GitHub <span aria-hidden="true">↗</span>
+                        </a>
+                      )}
 
-                  {project?.live_url && (
-                    <a
-                      href={project.live_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flagship-text-link"
-                    >
-                      Live system <span aria-hidden="true">↗</span>
-                    </a>
+                      {project?.live_url && (
+                        <a
+                          href={project.live_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flagship-text-link"
+                          aria-label={`${caseStudy.title} live system`}
+                        >
+                          Live system <span aria-hidden="true">↗</span>
+                        </a>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
@@ -154,12 +133,12 @@ function FlagshipCaseStudies({ projects }: FlagshipCaseStudiesProps) {
       </div>
 
       <div className="flagship-footer">
-        <p>
-          Want the broader picture? The archive includes healthcare, GIS,
-          networking, commercial, and experimental systems.
-        </p>
+        <div className="flagship-ownership-note">
+          <strong>My role across all three</strong>
+          <p>{PROJECT_OWNERSHIP_STATEMENT}</p>
+        </div>
         <Link to="/projects" className="btn flagship-all-projects-btn">
-          Explore all projects
+          Explore all projects <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import { useAuth } from "../auth/useAuth";
@@ -30,6 +30,7 @@ function Navbar() {
   const { user, logout } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   const isLoggedIn = Boolean(user);
 
   useEffect(() => {
@@ -63,7 +64,15 @@ function Navbar() {
   }
 
   return (
-    <nav className="navbar neo-navbar">
+    <nav
+      className="navbar neo-navbar"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && isMenuOpen) {
+          setIsMenuOpen(false);
+          menuToggleRef.current?.focus();
+        }
+      }}
+    >
       <NavLink
         to="/"
         className="navbar-brand neo-brand"
@@ -94,10 +103,12 @@ function Navbar() {
       </NavLink>
 
       <button
+        ref={menuToggleRef}
         type="button"
         className={isMenuOpen ? "nav-menu-toggle is-open" : "nav-menu-toggle"}
         aria-label="Toggle navigation menu"
         aria-expanded={isMenuOpen}
+        aria-controls="primary-navigation"
         onClick={() => setIsMenuOpen((current) => !current)}
       >
         <span />
@@ -106,6 +117,7 @@ function Navbar() {
       </button>
 
       <div
+        id="primary-navigation"
         className={
           isMenuOpen
             ? "navbar-links neo-navbar-links is-open"

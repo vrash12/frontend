@@ -52,7 +52,7 @@ function ProjectCard({ project }: ProjectCardProps) {
           </div>
         )}
 
-        <Link to={`/projects/${project.id}`} className="project-hover-overlay">
+        <Link to={`/projects/${project.id}`} className="project-hover-overlay" aria-label={`View ${project.title}`}>
           <span className="project-hover-kicker">
             {hasVideo ? "Watch Build" : "Open Build"}
           </span>
