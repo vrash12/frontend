@@ -76,9 +76,18 @@ const workflowGroups = [
 ];
 
 const achievements = [
-  "Magna Cum Laude, July 31, 2026",
-  "Best Capstone Project, 2026",
-  "3rd Place, Saliksiklaban University-wide Undergraduate Research Competition, STEM Category, 2026",
+  {
+    title: "Magna Cum Laude",
+    detail: "Graduated July 31, 2026",
+  },
+  {
+    title: "Best Capstone Project",
+    detail: "2026",
+  },
+  {
+    title: "3rd Place · STEM Category",
+    detail: "Saliksiklaban University-wide Undergraduate Research Competition, 2026",
+  },
 ];
 
 const workingPrinciples = [
@@ -443,125 +452,110 @@ ${contactForm.message}
         </div>
       </section>
 
-      <section className="about-education-section enhanced-education-section">
-        <div className="about-section-heading education-heading-enhanced">
-          <p className="section-kicker">Education</p>
-
-          <h2>Academic Background</h2>
-
-          <p>
-            My academic path focuses on information
-            technology, software development, networking, and
-            continuous professional growth.
-          </p>
-        </div>
-
-        <div className="education-journey">
-          <article className="education-card education-card-featured">
-            <div className="education-card-marker">
-              <span>01</span>
+      <section
+        className="about-education-section"
+        aria-labelledby="about-education-title"
+      >
+        <div className="education-inner">
+          <div className="education-heading">
+            <div>
+              <p className="section-kicker">Education</p>
+              <h2 id="about-education-title">Academic <span>Background.</span></h2>
             </div>
+            <p>
+              A foundation in information technology. An ongoing
+              commitment to learning, research, and building better software.
+            </p>
+          </div>
 
-            <div className="education-card-content">
+          <div className="education-degrees">
+            <article className="education-card education-card-graduate">
               <div className="education-card-top">
-                <span className="about-year-pill">
-                  August 2026 - Present
+                <p className="education-level"><span aria-hidden="true">01 /</span> Graduate studies</p>
+                <span className="education-status education-status-current">
+                  <span aria-hidden="true" /> In progress
                 </span>
-
-                <strong>Graduate Studies</strong>
               </div>
-
-              <h3>Tarlac State University</h3>
-
-              <h4>Master in Information Technology</h4>
-
-              <p>
-                I am currently pursuing my graduate studies
-                to deepen my knowledge in software
-                development, information systems, networking,
-                and modern technology solutions.
+              <div className="education-degree-heading">
+                <span className="education-degree-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 7c5-2 9-1 13 2 4-3 8-4 13-2v20c-5-2-9-1-13 2-4-3-8-4-13-2V7Zm13 2v20M7 12l5 1m-5 5 5 1m8-6 5-1m-5 7 5-1" />
+                  </svg>
+                </span>
+                <h3>Master in <span>Information Technology</span></h3>
+              </div>
+              <div className="education-institution">
+                <strong>Tarlac State University</strong>
+                <p><time dateTime="2026-08">August 2026</time> — Present</p>
+              </div>
+              <p className="education-description">
+                Pursuing graduate studies to deepen my knowledge of software
+                development, information systems, networking, and modern
+                technology solutions.
               </p>
-
-              <div className="education-focus-grid">
-                <span>Graduate Studies</span>
-                <span>Information Systems</span>
-                <span>Software Development</span>
-                <span>Networking</span>
+              <div className="education-focus">
+                <h4>Exploring further</h4>
+                <ul className="education-tags" aria-label="Graduate study focus areas">
+                  <li>Information systems</li>
+                  <li>Software development</li>
+                  <li>Networking</li>
+                </ul>
               </div>
-            </div>
-          </article>
+            </article>
 
-          <article className="education-card">
-            <div className="education-card-marker">
-              <span>02</span>
-            </div>
-
-            <div className="education-card-content">
+            <article className="education-card education-card-undergraduate">
               <div className="education-card-top">
-                <span className="about-year-pill">
-                  August 2022 - July 2026
+                <p className="education-level"><span aria-hidden="true">02 /</span> Undergraduate</p>
+                <span className="education-status">Completed</span>
+              </div>
+              <div className="education-degree-heading">
+                <span className="education-degree-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m2 12 14-7 14 7-14 7L2 12Zm6 3v8c5 4 11 4 16 0v-8m6-3v12" />
+                  </svg>
                 </span>
-
-                <strong>Undergraduate</strong>
+                <h3>Bachelor of Science in <span>Information Technology</span></h3>
               </div>
-
-              <h3>Tarlac State University</h3>
-
-              <h4>
-                Bachelor of Science in Information Technology
-                specializing in Network and Administration
-              </h4>
-
-              <p>
-                Built a strong foundation in programming,
-                databases, systems, networking, web
-                development, and IT project implementation.
+              <div className="education-institution">
+                <strong>Tarlac State University</strong>
+                <p><time dateTime="2022-08">August 2022</time> — <time dateTime="2026-07">July 2026</time></p>
+              </div>
+              <p className="education-description">
+                Specialized in Network and Administration, with a foundation in
+                programming, databases, systems, web development, and IT
+                project implementation.
               </p>
-
-              <div className="about-achievement-list education-achievement-list">
-                {achievements.map((achievement) => (
-                  <span key={achievement}>
-                    {achievement}
-                  </span>
-                ))}
+              <div className="education-focus">
+                <h4>Built on the fundamentals</h4>
+                <ul className="education-tags" aria-label="Undergraduate study focus areas">
+                  <li>Network administration</li>
+                  <li>Programming</li>
+                  <li>Databases</li>
+                </ul>
               </div>
+            </article>
+          </div>
+
+          <aside className="education-honors" aria-labelledby="education-honors-title">
+            <div className="education-honors-heading">
+              <h3 id="education-honors-title">Undergraduate honors</h3>
+              <span>Class of 2026</span>
             </div>
-          </article>
-
-          <article className="education-card">
-            <div className="education-card-marker">
-              <span>03</span>
-            </div>
-
-            <div className="education-card-content">
-              <div className="education-card-top">
-                <span className="about-year-pill">
-                  2020 - 2022
-                </span>
-
-                <strong>Senior High</strong>
-              </div>
-
-              <h3>
-                St. Vincent School Foundation, Inc.
-              </h3>
-
-              <h4>STEM Strand</h4>
-
-              <p>
-                Developed academic discipline,
-                problem-solving skills, and a stronger
-                interest in science, technology, and
-                analytical thinking.
-              </p>
-
-              <div className="education-focus-grid">
-                <span>STEM</span>
-                <span>Research</span>
-                <span>Problem Solving</span>
-              </div>
-            </div>
-          </article>
+            <ul className="education-honors-list">
+              {achievements.map((achievement) => (
+                <li key={achievement.title}>
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="16" cy="12" r="8" />
+                    <path d="m10 18-3 11 9-4 9 4-3-11m-6-11 1.5 3 3.5.5-2.5 2.5.5 3.5-3-1.5-3 1.5.5-3.5-2.5-2.5 3.5-.5L16 7Z" />
+                  </svg>
+                  <div>
+                    <h4>{achievement.title}</h4>
+                    <p>{achievement.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -783,34 +777,6 @@ ${contactForm.message}
         </div>
       </section>
 
-      <section className="about-leadership-section">
-        <div className="about-leadership-card refined-leadership-card">
-          <div className="about-leadership-copy">
-            <p className="section-kicker">
-              Leadership
-            </p>
-
-            <h2>
-              Serving through mentorship and community.
-            </h2>
-          </div>
-
-          <div className="about-leadership-info">
-            <h3>Youth Leader — Deep & Wide PH</h3>
-
-            <p>
-              I mentor and guide youth members through
-              faith-based activities and group discussions,
-              helping develop my communication, teaching, and
-              leadership skills.
-            </p>
-
-            <span className="about-year-pill">
-              2024 - Present
-            </span>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

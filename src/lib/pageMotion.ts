@@ -1,8 +1,8 @@
 const revealSelector = [
   ".mission-card", ".flagship-card", ".home-blog-card",
   ".about-summary-card", ".about-summary-approach", ".about-summary-tool-note",
-  ".education-card", ".about-skill-card", ".about-skills-workflow",
-  ".about-experience-card", ".refined-leadership-card",
+  ".education-card", ".education-honors", ".about-skill-card", ".about-skills-workflow",
+  ".about-experience-card",
   ".project-card", ".project-detail-story-card", ".project-detail-tech-card",
   ".project-case-study-section", ".project-detail-gallery-item",
   ".adventure-gallery-item",

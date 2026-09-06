@@ -134,7 +134,7 @@ form :is(input, textarea, select):user-invalid {
   :is(.about-skill-card, .about-experience-card, .about-summary-card,
     .about-skills-workflow, .about-summary-tool-note, .flagship-card,
     .project-detail-story-card, .project-detail-tech-card,
-    .refined-leadership-card, .home-blog-card, .project-card) {
+    .education-card, .education-honors, .home-blog-card, .project-card) {
     transition: transform var(--motion-normal) var(--motion-ease),
       box-shadow var(--motion-normal) var(--motion-ease),
       border-color var(--motion-normal) ease;
@@ -142,14 +142,15 @@ form :is(input, textarea, select):user-invalid {
 
   :is(.about-skill-card-top svg, .about-experience-role-title svg,
     .about-summary-spark, .about-summary-step, .brand-logo-icon,
-    .about-experience-project-link > span, .flagship-case-link > span) {
+    .about-experience-project-link > span, .flagship-case-link > span,
+    .education-degree-icon svg) {
     transition: transform var(--motion-normal) var(--motion-ease),
       background-color var(--motion-normal) ease,
       box-shadow var(--motion-normal) ease;
   }
 
   :is(.about-skill-tags li, .about-experience-tags li,
-    .about-summary-domains li) {
+    .about-summary-domains li, .education-tags li) {
     transition: border-color var(--motion-fast) ease,
       background-color var(--motion-fast) ease;
   }
@@ -189,6 +190,8 @@ form :is(input, textarea, select):user-invalid {
     .about-summary-card:hover,
     .about-skills-workflow:hover,
     .about-summary-tool-note:hover,
+    .education-card:hover,
+    .education-honors:hover,
     .project-detail-story-card:hover,
     .project-detail-tech-card:hover {
       transform: translate(-3px, -3px);
@@ -196,7 +199,8 @@ form :is(input, textarea, select):user-invalid {
     }
 
     .about-skill-card:hover .about-skill-card-top svg,
-    .about-experience-card:hover .about-experience-role-title svg {
+    .about-experience-card:hover .about-experience-role-title svg,
+    .education-card:hover .education-degree-icon svg {
       transform: rotate(-7deg);
     }
 
@@ -216,7 +220,8 @@ form :is(input, textarea, select):user-invalid {
 
     .about-skill-tags li:hover,
     .about-experience-tags li:hover,
-    .about-summary-domains li:hover {
+    .about-summary-domains li:hover,
+    .education-tags li:hover {
       border-color: var(--orange);
     }
   }
