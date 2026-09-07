@@ -7905,7 +7905,7 @@ h4,
     transform 0.2s ease;
 }
 
-.project-detail-gallery-item:hover .project-gallery-open-button img {
+.project-detail-gallery-item:not(.project-gallery-poster):hover .project-gallery-open-button img {
   transform: scale(1.06);
   filter: saturate(1.1) contrast(1.05);
 }
@@ -7923,6 +7923,21 @@ h4,
   font-size: 13px;
   font-weight: 950;
   text-transform: uppercase;
+}
+
+.project-gallery-poster .project-gallery-open-button {
+  height: clamp(360px, 55vw, 640px);
+  background: #fffaf2;
+}
+
+.project-gallery-poster .project-gallery-open-button img {
+  object-fit: contain;
+}
+
+.project-modal-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .project-image-modal {

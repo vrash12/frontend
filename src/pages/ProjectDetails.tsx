@@ -7,6 +7,7 @@ import {
 } from "../api/client";
 import type { Project, ProjectImage } from "../types";
 import DeferredVideo from "../components/DeferredVideo";
+import pgtResearchPoster from "../assets/projects/pgt-onboard-research-poster.jpg";
 import {
   getPreferredProjectDescription,
   getProjectCaseStudy,
@@ -42,6 +43,8 @@ type ProjectCaseStudyContentProps = {
   caseStudy: ProjectCaseStudy;
   technologies: string[];
 };
+
+type GalleryImage = ProjectImage & { localSrc?: string };
 
 function ProjectCaseStudyContent({
   caseStudy,
@@ -162,7 +165,16 @@ function ProjectDetails() {
       });
   }, [id]);
 
-  const galleryImages: ProjectImage[] = project?.images || [];
+  const galleryImages: GalleryImage[] = (project?.images || []).map((image) =>
+    project?.id === 11 &&
+    image.image.split("/").pop() === "1783513662411-138828690-poster.png"
+      ? {
+          ...image,
+          localSrc: pgtResearchPoster,
+          caption: "PGT Onboard research poster",
+        }
+      : image
+  );
 
   const legacyVideo: ProjectVideo[] =
     project?.video && (!project.videos || project.videos.length === 0)
@@ -181,7 +193,7 @@ function ProjectDetails() {
     ...legacyVideo,
   ];
 
-  const selectedImage: ProjectImage | null =
+  const selectedImage: GalleryImage | null =
     selectedImageIndex !== null
       ? galleryImages[selectedImageIndex] ?? null
       : null;
@@ -436,17 +448,17 @@ function ProjectDetails() {
                   key={image.id}
                   className={`project-detail-gallery-item project-gallery-style-${
                     (index % 6) + 1
-                  }`}
+                  }${image.localSrc ? " project-gallery-poster" : ""}`}
                 >
                   <button
                     type="button"
                     className="project-gallery-open-button"
                     onClick={() => openImage(index)}
-                    aria-label={`Open project image ${index + 1}`}
+                    aria-label={image.caption ? `Open ${image.caption}` : `Open project image ${index + 1}`}
                   >
                     <img
-                      src={getThumbnailUrl(image.image, 900)}
-                      alt={`${project.title} screenshot ${index + 1}`}
+                      src={image.localSrc || getThumbnailUrl(image.image, 900)}
+                      alt={image.caption || `${project.title} screenshot ${index + 1}`}
                       loading="lazy"
                       decoding="async"
                     />
@@ -455,7 +467,7 @@ function ProjectDetails() {
                   </button>
 
                   <figcaption>
-                    Frame {String(index + 1).padStart(2, "0")}
+                    {image.caption || `Frame ${String(index + 1).padStart(2, "0")}`}
                   </figcaption>
                 </figure>
               ))}
@@ -507,8 +519,8 @@ function ProjectDetails() {
               </button>
 
               <img
-                src={getImageUrl(selectedImage.image)}
-                alt={`${project.title} enlarged screenshot ${
+                src={selectedImage.localSrc || getImageUrl(selectedImage.image)}
+                alt={selectedImage.caption || `${project.title} enlarged screenshot ${
                   selectedImageIndex + 1
                 }`}
                 className="project-modal-image"
@@ -527,6 +539,11 @@ function ProjectDetails() {
 
             <div className="project-modal-footer">
               <span>{project.title}</span>
+              {selectedImage.localSrc && (
+                <a href={selectedImage.localSrc} target="_blank" rel="noreferrer">
+                  Open original image ↗
+                </a>
+              )}
             </div>
           </div>
         </div>
