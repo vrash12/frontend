@@ -381,7 +381,8 @@ function Home() {
     <h2>Latest Stories From the Road, Trail, and Journey</h2>
 
     <p>
-      Fresh adventure logs pulled directly from your backend blog manager.
+      When I’m offline, you’ll find me exploring new places, hiking trails,
+      or taking the scenic route on two wheels. These are the stories I bring back.
     </p>
   </div>
 
@@ -395,7 +396,7 @@ function Home() {
     </p>
   ) : blogs.length === 0 ? (
     <p className="dynamic-section-message dynamic-section-message-dark">
-      No blogs yet. Add your first adventure log in the hidden admin page.
+      More stories from the road and trail are on the way. Check back soon.
     </p>
   ) : (
     <div className="home-blog-grid">
