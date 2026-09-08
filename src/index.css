@@ -4400,6 +4400,83 @@ h4,
   }
 }
 
+.home-web-toolkit {
+  width: min(1600px, 100%);
+  margin: 36px auto 0;
+  padding: clamp(22px, 2.5vw, 36px);
+  background: #fffaf2;
+  border: 3px solid var(--black);
+  border-radius: 24px;
+  box-shadow: 7px 7px 0 var(--orange);
+}
+
+.home-web-toolkit-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-bottom: 24px;
+}
+
+.home-web-toolkit-heading h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: -0.035em;
+}
+
+.home-web-toolkit-heading p {
+  margin: 0;
+  color: #5a5148;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.home-web-toolkit-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.home-web-toolkit-group {
+  min-width: 0;
+  padding-top: 18px;
+  border-top: 2px solid #dfd3c4;
+}
+
+.home-web-toolkit-group h4 {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.home-web-toolkit-group ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-web-toolkit-group li {
+  padding: 7px 10px;
+  background: var(--white);
+  border: 1px solid #ccc4b9;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .home-web-toolkit-groups {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 /* Bigger logos inside Mission Control tool pills */
 
 .mission-tool-icon {

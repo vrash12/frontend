@@ -8,6 +8,21 @@ import { getPreferredBlogDescription } from "../data/blogEditorialContent";
 
 const skillPath = "/images/logos-skill";
 
+const webToolkit = [
+  {
+    title: "Web applications",
+    tools: ["Next.js", "React", "TypeScript", "WordPress"],
+  },
+  {
+    title: "Styling & design",
+    tools: ["Tailwind CSS", "Custom CSS", "Figma"],
+  },
+  {
+    title: "Authentication & data",
+    tools: ["Supabase", "PostgreSQL", "Drizzle ORM"],
+  },
+];
+
 const psalmPassage = {
   title: "Psalm 19",
   subtitle: "For the choir director: A psalm of David.",
@@ -368,6 +383,23 @@ function Home() {
             </article>
           ))}
         </div>
+
+        <section className="home-web-toolkit" aria-labelledby="home-web-toolkit-title">
+          <div className="home-web-toolkit-heading">
+            <h3 id="home-web-toolkit-title">Web development toolkit</h3>
+            <p>From the first layout to the database behind it.</p>
+          </div>
+          <div className="home-web-toolkit-groups">
+            {webToolkit.map((group) => (
+              <div className="home-web-toolkit-group" key={group.title}>
+                <h4>{group.title}</h4>
+                <ul aria-label={`${group.title} technologies`}>
+                  {group.tools.map((tool) => <li key={tool}>{tool}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
 
 

@@ -13,23 +13,24 @@ const skillGroups = [
     title: "Programming",
     description: "The foundations I use to turn a problem into working software.",
     iconPath: "m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18",
-    items: ["Python", "JavaScript", "Java", "PHP", "C++"],
+    items: ["Python", "JavaScript", "TypeScript", "Java", "PHP", "C++"],
   },
   {
-    title: "Frontend Development",
-    description: "Responsive interfaces built for the people using them.",
+    title: "Web Development",
+    description: "Responsive websites and interfaces, from custom applications to WordPress.",
     iconPath: "M3 3h18v18H3V3Zm0 5h18M7 5.5h.01M10 5.5h.01M7 12h4v5H7v-5Zm8 0h2m-2 4h2",
-    items: ["HTML", "CSS", "React"],
+    items: ["HTML", "Custom CSS", "Tailwind CSS", "React", "Next.js", "WordPress"],
   },
   {
     title: "Backend Development",
-    description: "APIs and application logic behind the experience.",
+    description: "APIs, authentication, and application logic behind the experience.",
     iconPath: "M3 3h18v7H3V3Zm0 11h18v7H3v-7Zm4-7h.01M7 17h.01M12 7h5m-5 10h5",
     items: [
       "Django",
       "Laravel",
       "Flask",
       "Node.js",
+      "Supabase",
       "Spring Boot",
       "PHP",
     ],
@@ -53,16 +54,16 @@ const skillGroups = [
     items: ["Linux", "Windows", "Network Administration"],
   },
   {
-    title: "Databases",
-    description: "Organizing and managing the data an application relies on.",
+    title: "Databases & ORM",
+    description: "Database schemas, structured storage, and queries that connect data to applications.",
     iconPath: "M20 5c0 2-3.6 3-8 3S4 7 4 5s3.6-3 8-3 8 1 8 3ZM4 5v14c0 2 3.6 3 8 3s8-1 8-3V5M4 12c0 2 3.6 3 8 3s8-1 8-3",
-    items: ["MySQL", "PostgreSQL"],
+    items: ["MySQL", "PostgreSQL", "Drizzle ORM"],
   },
 ];
 
 const workflowGroups = [
   {
-    title: "Build & collaborate",
+    title: "Design, build & collaborate",
     items: ["Git/GitHub", "Postman", "VS Code", "Figma"],
   },
   {
