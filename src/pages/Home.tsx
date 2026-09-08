@@ -8,21 +8,6 @@ import { getPreferredBlogDescription } from "../data/blogEditorialContent";
 
 const skillPath = "/images/logos-skill";
 
-const webToolkit = [
-  {
-    title: "Web applications",
-    tools: ["Next.js", "React", "TypeScript", "WordPress"],
-  },
-  {
-    title: "Styling & design",
-    tools: ["Tailwind CSS", "Custom CSS", "Figma"],
-  },
-  {
-    title: "Authentication & data",
-    tools: ["Supabase", "PostgreSQL", "Drizzle ORM"],
-  },
-];
-
 const psalmPassage = {
   title: "Psalm 19",
   subtitle: "For the choir director: A psalm of David.",
@@ -51,18 +36,38 @@ const missionCards = [
     title: "Software Development",
     label: "Build",
     description:
-      "I design and develop web applications, dashboards, APIs, and full-stack systems that solve real problems.",
-    image: `${skillPath}/logo2.webp`,
+      "I build application logic, APIs, authentication, and database systems that connect the interface to the data behind it.",
+    image: `${skillPath}/logo13.webp`,
     fallback: "💻",
     accent: "#ff7a00",
     tools: [
-      { name: "React", image: `${skillPath}/logo2.webp` },
-      { name: "HTML5", image: `${skillPath}/logo4.webp` },
       { name: "PHP", image: `${skillPath}/logo14.webp` },
       { name: "Java", image: `${skillPath}/logo13.webp` },
       { name: "Django", image: `${skillPath}/logo11.webp` },
       { name: "Flask", image: `${skillPath}/logo17.webp` },
       { name: "Docker", image: `${skillPath}/logo18.webp` },
+      { name: "Supabase", image: `${skillPath}/supabase.svg` },
+      { name: "PostgreSQL", image: `${skillPath}/postgresql.svg` },
+      { name: "Drizzle ORM", image: `${skillPath}/drizzle.svg` },
+    ],
+  },
+  {
+    title: "Web Design & Development",
+    label: "Create",
+    description:
+      "I design responsive layouts and turn them into websites and web applications, from custom interfaces to WordPress.",
+    image: `${skillPath}/figma.svg`,
+    fallback: "✦",
+    accent: "#ffb84d",
+    tools: [
+      { name: "Next.js", image: `${skillPath}/nextjs.svg` },
+      { name: "React", image: `${skillPath}/logo2.webp` },
+      { name: "TypeScript", image: `${skillPath}/typescript.svg` },
+      { name: "HTML5", image: `${skillPath}/logo4.webp` },
+      { name: "Tailwind CSS", image: `${skillPath}/tailwindcss.svg` },
+      { name: "Custom CSS", image: `${skillPath}/css3.svg` },
+      { name: "WordPress", image: `${skillPath}/wordpress.svg` },
+      { name: "Figma", image: `${skillPath}/figma.svg` },
       { name: "Vite", image: `${skillPath}/logo20.webp` },
     ],
   },
@@ -307,14 +312,12 @@ function Home() {
           <h2>What I Build Around</h2>
 
           <p>
-            My portfolio focuses on three core areas where I enjoy learning,
-            experimenting, and building real technical projects. A focused view
-            of the languages, frameworks, tools, and technologies I use across
-            software development, data science, and artificial intelligence.
+            From websites and application systems to data science and AI,
+            these are the areas I build in and the tools I use along the way.
           </p>
         </div>
 
-        <div className="mission-grid">
+        <div className="mission-grid mission-grid-expanded">
           {missionCards.map((card, index) => (
             <article
               className="mission-card mission-card-with-tools"
@@ -330,25 +333,27 @@ function Home() {
                 <span className="mission-label">{card.label}</span>
               </div>
 
-              <div className="mission-icon">
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
+              <div className="mission-card-intro">
+                <div className="mission-icon" aria-hidden="true">
+                  <img
+                    src={card.image}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
 
-                    const parent = event.currentTarget.parentElement;
+                      const parent = event.currentTarget.parentElement;
 
-                    if (parent) {
-                      parent.dataset.fallback = card.fallback;
-                    }
-                  }}
-                />
+                      if (parent) {
+                        parent.dataset.fallback = card.fallback;
+                      }
+                    }}
+                  />
+                </div>
+
+                <h3>{card.title}</h3>
               </div>
-
-              <h3>{card.title}</h3>
 
               <p>{card.description}</p>
 
@@ -357,16 +362,16 @@ function Home() {
                   Tools and Technologies
                 </span>
 
-                <div className="mission-tools-grid">
+                <ul className="mission-tools-grid" aria-label={`${card.title} tools`}>
                   {card.tools.map((tool) => (
-                    <div
+                    <li
                       className="mission-tool-pill"
                       key={`${card.title}-${tool.name}`}
                     >
                       <div className="mission-tool-icon">
                         <img
                           src={tool.image}
-                          alt={tool.name}
+                          alt=""
                           loading="lazy"
                           decoding="async"
                           onError={(event) => {
@@ -376,30 +381,14 @@ function Home() {
                       </div>
 
                       <span>{tool.name}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </article>
           ))}
         </div>
 
-        <section className="home-web-toolkit" aria-labelledby="home-web-toolkit-title">
-          <div className="home-web-toolkit-heading">
-            <h3 id="home-web-toolkit-title">Web development toolkit</h3>
-            <p>From the first layout to the database behind it.</p>
-          </div>
-          <div className="home-web-toolkit-groups">
-            {webToolkit.map((group) => (
-              <div className="home-web-toolkit-group" key={group.title}>
-                <h4>{group.title}</h4>
-                <ul aria-label={`${group.title} technologies`}>
-                  {group.tools.map((tool) => <li key={tool}>{tool}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
       </section>
 
 
