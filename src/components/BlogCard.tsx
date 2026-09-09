@@ -45,7 +45,6 @@ function BlogCard({ post }: BlogCardProps) {
         )}
 
         <Link to={`/blogs/${post.id}`} className="blog-hover-overlay" aria-label={`Read ${post.title}`}>
-          <span className="blog-hover-kicker">Open Log</span>
           <span className="blog-hover-button">Read Adventure</span>
         </Link>
       </div>
