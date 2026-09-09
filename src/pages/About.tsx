@@ -19,7 +19,7 @@ const skillGroups = [
     title: "Web Development",
     description: "Responsive websites and interfaces, from custom applications to WordPress.",
     iconPath: "M3 3h18v18H3V3Zm0 5h18M7 5.5h.01M10 5.5h.01M7 12h4v5H7v-5Zm8 0h2m-2 4h2",
-    items: ["HTML", "Custom CSS", "Tailwind CSS", "React", "Next.js", "WordPress"],
+    items: ["HTML", "Custom CSS", "Tailwind CSS", "React", "Next.js", "Vue.js", "WordPress", "Elementor"],
   },
   {
     title: "Backend Development",
@@ -67,7 +67,7 @@ const workflowGroups = [
     items: ["Git/GitHub", "Postman", "VS Code", "Figma"],
   },
   {
-    title: "Package & deploy",
+    title: "Cloud & deployment",
     items: ["Docker", "AWS", "Google Cloud Run"],
   },
   {

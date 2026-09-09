@@ -49,6 +49,8 @@ const missionCards = [
       { name: "Supabase", image: `${skillPath}/supabase.svg` },
       { name: "PostgreSQL", image: `${skillPath}/postgresql.svg` },
       { name: "Drizzle ORM", image: `${skillPath}/drizzle.svg` },
+      { name: "Google Cloud Run", image: `${skillPath}/googlecloud.svg` },
+      { name: "AWS", image: `${skillPath}/aws.svg` },
     ],
   },
   {
@@ -62,11 +64,13 @@ const missionCards = [
     tools: [
       { name: "Next.js", image: `${skillPath}/nextjs.svg` },
       { name: "React", image: `${skillPath}/logo2.webp` },
+      { name: "Vue.js", image: `${skillPath}/vuejs.svg` },
       { name: "TypeScript", image: `${skillPath}/typescript.svg` },
       { name: "HTML5", image: `${skillPath}/logo4.webp` },
       { name: "Tailwind CSS", image: `${skillPath}/tailwindcss.svg` },
       { name: "Custom CSS", image: `${skillPath}/css3.svg` },
       { name: "WordPress", image: `${skillPath}/wordpress.svg` },
+      { name: "Elementor", image: `${skillPath}/elementor.svg` },
       { name: "Figma", image: `${skillPath}/figma.svg` },
       { name: "Vite", image: `${skillPath}/logo20.webp` },
     ],
