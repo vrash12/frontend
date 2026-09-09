@@ -40,6 +40,8 @@ const missionCards = [
     image: `${skillPath}/logo13.webp`,
     fallback: "💻",
     accent: "#ff7a00",
+    workflowNote:
+      "I use Codex and Claude Code to explore solutions, write code more efficiently, and improve implementation. I review the changes, run tests, and validate the final behavior myself.",
     tools: [
       { name: "PHP", image: `${skillPath}/logo14.webp` },
       { name: "Java", image: `${skillPath}/logo13.webp` },
@@ -51,6 +53,8 @@ const missionCards = [
       { name: "Drizzle ORM", image: `${skillPath}/drizzle.svg` },
       { name: "Google Cloud Run", image: `${skillPath}/googlecloud.svg` },
       { name: "AWS", image: `${skillPath}/aws.svg` },
+      { name: "Codex", image: `${skillPath}/openai.svg` },
+      { name: "Claude Code", image: `${skillPath}/claude.svg` },
     ],
   },
   {
@@ -389,6 +393,12 @@ function Home() {
                   ))}
                 </ul>
               </div>
+              {card.workflowNote && (
+                <div className="mission-workflow-note">
+                  <h4>AI-assisted workflow</h4>
+                  <p>{card.workflowNote}</p>
+                </div>
+              )}
             </article>
           ))}
         </div>

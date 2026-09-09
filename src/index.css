@@ -4515,6 +4515,27 @@ h4,
   line-height: 1.35;
 }
 
+.mission-workflow-note {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--mission-accent);
+  border-radius: 0 12px 12px 0;
+  background: #fff4e8;
+}
+
+.mission-workflow-note h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.mission-grid-expanded .mission-workflow-note p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.65;
+}
+
 @media (min-width: 821px) and (max-width: 1100px) {
   .mission-card-intro {
     align-items: flex-start;

@@ -30,3 +30,8 @@ Source: https://github.com/simple-icons/simple-icons/blob/develop/icons/drizzle.
 
 Retrieved September 9, 2026. The source artwork is unchanged. The collection's
 CC0 license is included in `SIMPLE-ICONS-LICENSE.md`.
+
+`openai.svg` (the OpenAI brand for Codex) and `claude.svg` (the Claude brand for
+Claude Code) use the unchanged Simple Icons 15.0.0 artwork, retrieved September
+10, 2026, under the same CC0 license:
+https://github.com/simple-icons/simple-icons/tree/15.0.0/icons
